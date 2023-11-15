@@ -1230,7 +1230,7 @@ GameObject:
   - component: {fileID: 364211248}
   m_Layer: 0
   m_Name: Atk_Hitbox
-  m_TagString: Untagged
+  m_TagString: Enemy_atk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1446,7 +1446,7 @@ GameObject:
   - component: {fileID: 393724974}
   m_Layer: 0
   m_Name: Atk_Hitbox
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
