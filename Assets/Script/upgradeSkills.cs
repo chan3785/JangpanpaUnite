@@ -13,6 +13,8 @@ public class upgradeSkills : MonoBehaviour
     public Image dot5;
     public Image dot6;
 
+    private bool isHealth, isPower, isSpeed, isReflex, isDefence, isInvinci;
+    [SerializeField] private GameObject Health, Power;
     void Start()
     {
         count = 0;
@@ -44,17 +46,24 @@ public class upgradeSkills : MonoBehaviour
                 break;
             case 6:
                 changeColor(dot6);
-                break;    
+                break;
         }
     }
+    public void TurnPanelState()
+    {
 
-    void changeColor(Image dot) {
-        if (dot.GetComponent<Image>().color != Color.red){
+    }
+
+    void changeColor(Image dot)
+    {
+        if (dot.GetComponent<Image>().color != Color.red)
+        {
             dot.GetComponent<Image>().color = Color.red;
         }
     }
 
-    public void health() { // 체력
+    public void health()
+    { // 체력
         if (Settings.health <= 6)
         {
             Settings.health++;
@@ -63,7 +72,8 @@ public class upgradeSkills : MonoBehaviour
         Debug.Log(Settings.health);
     }
 
-    public void power() { // 공격력
+    public void power()
+    { // 공격력
         if (Settings.power <= 6)
         {
             Settings.power++;
@@ -72,7 +82,8 @@ public class upgradeSkills : MonoBehaviour
         Debug.Log(Settings.power);
     }
 
-    public void speed() { // 공격속도
+    public void speed()
+    { // 공격속도
         if (Settings.speed <= 6)
         {
             Settings.speed++;
@@ -81,7 +92,8 @@ public class upgradeSkills : MonoBehaviour
         Debug.Log(Settings.speed);
     }
 
-    public void reflex() { // 순발력
+    public void reflex()
+    { // 순발력
         if (Settings.reflex <= 6)
         {
             Settings.reflex++;
@@ -90,7 +102,8 @@ public class upgradeSkills : MonoBehaviour
         Debug.Log(Settings.reflex);
     }
 
-    public void defence() { // 방어력
+    public void defence()
+    { // 방어력
         if (Settings.defence <= 6)
         {
             Settings.defence++;
@@ -99,7 +112,8 @@ public class upgradeSkills : MonoBehaviour
         Debug.Log(Settings.defence);
     }
 
-    public void invincibility() { // 만인지적
+    public void invincibility()
+    { // 만인지적
         if (Settings.invincibility <= 6)
         {
             Settings.invincibility++;
