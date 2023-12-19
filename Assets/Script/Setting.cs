@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using UnityEngine.SceneManagement;
 
 public class Setting : MonoBehaviour
 {
     public static bool isBGM, isSound, isStory, isVib, isTutorial = true;
     [SerializeField] Toggle bgmTog, soundTog, storyTog, vibTog, tutTog;
     [SerializeField] AudioSource bgm, sound;
-    [SerializeField] Button quitButton;
-    public static int currentSceneIndex;
+
 
     // Start is called before the first frame update
     void Start()
@@ -66,18 +64,6 @@ public class Setting : MonoBehaviour
             isActive = false;
         }
 
-    }
-    public void goBackScene()
-    {
-        if (SceneManager.GetActiveScene().name == "SettingScene")
-        {
-            SceneManager.LoadScene(currentSceneIndex);
-        }
-        else
-        {
-            currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene("SettingScene");
-        }
     }
 }
 
