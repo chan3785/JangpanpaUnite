@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 {
     
     public GameObject[] hps = new GameObject [3];
+    public GameObject[] subHps = new GameObject[3];
+
 
     private int hp, atk, atkSpeed, specialSkillGage, subHp;
 
@@ -68,6 +70,16 @@ public class Player : MonoBehaviour
         hps[1] = GameObject.Find("HPBar (2)");
         hps[2] = GameObject.Find("HPBar (3)");
 
+
+        SubHp = 0;
+        subHps[0] = GameObject.Find("SubHPBar (1)");
+        subHps[1] = GameObject.Find("SubHPBar (2)");
+        subHps[2] = GameObject.Find("SubHPBar (3)");
+        subHps[0].SetActive(false);
+        subHps[1].SetActive(false);
+        subHps[2].SetActive(false);
+
+
         is_atk = false;
 
 
@@ -79,7 +91,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        subHps[0].SetActive(false);
+        subHps[1].SetActive(false);
+        subHps[2].SetActive(false);
+        for (int i = 0; i < subHp; i++)
+        {
+            subHps[i].SetActive(true);
+        }
     }
 
     private void Attack1()
@@ -119,10 +137,14 @@ public class Player : MonoBehaviour
                 if (can_Parrying)
                 {
                     Debug.Log("parrying");
+
                 }
                 else
                 {
                     Debug.Log("guard");
+                    hp -= 1;
+                    subHp += 1;
+
                 }
             }
 
@@ -132,6 +154,7 @@ public class Player : MonoBehaviour
             {
                 anim.SetBool("hurt", true);
                 hp -= 1;
+                subHp = 0;
                 Invoke("ani_init", 0.1f);
                 //Debug.Log("Player Hurt: "+hp);
                 if (hp <= 0)
