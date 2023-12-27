@@ -9,19 +9,19 @@ public class SceneMove : MonoBehaviour
     public static int currentSceneIndex;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (SceneManager.GetActiveScene().name == "SettingScene")
-            {
-                Move_Scene(currentSceneIndex);
-            }
-            else
-            {
-                currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-                //Debug.Log(currentSceneIndex);
-                Setting_Scene();
-            }
-        }
+        // if (Input.GetKeyDown(KeyCode.Escape))
+        // {
+        //     if (SceneManager.GetActiveScene().name == "SettingScene")
+        //     {
+        //         Move_Scene(currentSceneIndex);
+        //     }
+        //     else
+        //     {
+        //         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        //         Debug.Log(currentSceneIndex);
+        //         Setting_Scene();
+        //     }
+        // }
 
     }
     public void Move_Scene(int sceneIndex)
