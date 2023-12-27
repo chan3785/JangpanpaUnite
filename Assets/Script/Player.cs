@@ -98,6 +98,8 @@ public class Player : MonoBehaviour
         {
             subHps[i].SetActive(true);
         }
+
+        //Debug.Log(can_Parrying);
     }
 
     private void Attack1()

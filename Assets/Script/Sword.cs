@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Sword : Enemy
 {
+
+
+
+    
+    public static bool Parrying;
+    private bool isAtk;
+    private float atkTime;
+
     public GameObject[] hps = new GameObject[5];
 
     private bool can_Hurt;
@@ -23,7 +31,7 @@ public class Sword : Enemy
     public void Attack()
     {
 
-
+        isAtk = true;
 
         ani.SetBool("Atk", true);
 
@@ -43,8 +51,8 @@ public class Sword : Enemy
         hps[2] = GameObject.Find("HP (3)");
         hps[3] = GameObject.Find("HP (4)");
         hps[4] = GameObject.Find("HP (5)");
-        
-        
+
+        isAtk = false;
     }
 
     
@@ -53,6 +61,7 @@ public class Sword : Enemy
     // Update is called once per frame
     void Update()
     {
+        
         if (transform.position.x > -5)
         {
             walk();
@@ -87,6 +96,25 @@ public class Sword : Enemy
         }
         //print(ani.GetBool("Atk"));
         
+        if (isAtk)
+        {
+            
+            atkTime += Time.deltaTime;
+            if( atkTime > 0.2)
+            {
+                Parrying = true;
+                //Debug.Log("start");
+            }
+            if(atkTime > 1f)
+            {
+                Parrying = false;
+                //Debug.Log("end");
+                isAtk = false;
+                atkTime = 0;
+            }
+
+        }
+        //Debug.Log(Parrying);
     }
 
    

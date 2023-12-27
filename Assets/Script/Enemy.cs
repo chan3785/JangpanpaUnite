@@ -7,7 +7,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
+
     
+
     public Player player = new Player();
 
     public int hp, atk, subHp;

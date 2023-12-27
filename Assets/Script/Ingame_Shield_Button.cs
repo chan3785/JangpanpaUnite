@@ -29,8 +29,8 @@ using UnityEngine;
 
             if (is_Click)
             {
-                if (time > parrying_time)
-                {
+                if (!Sword.Parrying||time > parrying_time)
+            {
                 //Debug.Log("shiled");
                 //can_Parrying = false;
                     player.SendMessage("parrying_Off");
