@@ -10,22 +10,20 @@ public class Settings : MonoBehaviour
     public static int reflex;
     public static int defence;
     public static int invincibility;
-    public static bool character1;
-    public static bool character2;
-    public static bool character3;
-    public static bool character4;
+    public static bool zhangFei;
+    public static bool caoRen;
+    public static bool caoHong;
+    public static bool zhangLiao;
     public static bool character5;
     public static bool character6;
     public static bool character7;
-    public static bool character8;
-    public static bool character9;
-    public static bool character10;
-    public static bool character11;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        zhangFei = true;
+        caoRen = false; caoHong = false;
+        zhangLiao= false;
     }
 
     // Update is called once per frame
