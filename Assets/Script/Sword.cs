@@ -7,7 +7,7 @@ public class Sword : Enemy
 
 
 
-    
+
     public static bool Parrying;
     private bool isAtk;
     private float atkTime;
@@ -55,13 +55,13 @@ public class Sword : Enemy
         isAtk = false;
     }
 
-    
-    
-    
+
+
+
     // Update is called once per frame
     void Update()
     {
-        
+
         if (transform.position.x > -5)
         {
             walk();
@@ -75,9 +75,9 @@ public class Sword : Enemy
                 Debug.Log("atk");
                 Attack();
                 timer = 0;
-                atkSpeed = Random.Range(1,3);
+                atkSpeed = Random.Range(1, 3);
                 is_atk = true;
-                can_Hurt=true;
+                can_Hurt = true;
             }
             else
             {
@@ -95,17 +95,17 @@ public class Sword : Enemy
             }
         }
         //print(ani.GetBool("Atk"));
-        
+
         if (isAtk)
         {
-            
+
             atkTime += Time.deltaTime;
-            if( atkTime > 0.2)
+            if (atkTime > 0.2)
             {
                 Parrying = true;
                 //Debug.Log("start");
             }
-            if(atkTime > 1f)
+            if (atkTime > 1f)
             {
                 Parrying = false;
                 //Debug.Log("end");
@@ -117,6 +117,6 @@ public class Sword : Enemy
         //Debug.Log(Parrying);
     }
 
-   
+
 
 }
