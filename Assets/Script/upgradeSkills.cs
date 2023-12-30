@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class upgradeSkills : MonoBehaviour
 {
     int count;
-    //public Image img;
     public Sprite after_img;
+    public Sprite before_img;
+
     public Image dot1;
     public Image dot2;
     public Image dot3;
@@ -46,20 +47,39 @@ public class upgradeSkills : MonoBehaviour
                 break;
             case 6:
                 changeColor(dot6);
-                break;    
+                break;
         }
     }
 
-    void changeColor(Image dot) {
-        // if (dot.GetComponent<Image>().color != Color.red){
-        //     dot.GetComponent<Image>().color = Color.red;
-        // }
-        if (dot.GetComponent<Image>().sprite != after_img){
+    void changeColor(Image dot)
+    {
+        if (dot.GetComponent<Image>().sprite != after_img)
+        {
             dot.GetComponent<Image>().sprite = after_img;
         }
     }
+    public void Initialize()
+    {
+        Settings.health = 0;
+        Settings.power = 0;
+        Settings.speed = 0;
+        Settings.reflex = 0;
+        Settings.defence = 0;
+        Settings.invincibility = 0;
 
-    public void health() { // 체력
+        dot1.GetComponent<Image>().sprite = before_img;
+        dot2.GetComponent<Image>().sprite = before_img;
+        dot3.GetComponent<Image>().sprite = before_img;
+        dot4.GetComponent<Image>().sprite = before_img;
+        dot5.GetComponent<Image>().sprite = before_img;
+        dot6.GetComponent<Image>().sprite = before_img;
+
+
+        Debug.Log("Initialized");
+    }
+
+    public void health()
+    { // 체력
         if (Settings.health <= 6)
         {
             Settings.health++;
@@ -68,7 +88,8 @@ public class upgradeSkills : MonoBehaviour
         Debug.Log(Settings.health);
     }
 
-    public void power() { // 공격력
+    public void power()
+    { // 공격력
         if (Settings.power <= 6)
         {
             Settings.power++;
@@ -77,7 +98,8 @@ public class upgradeSkills : MonoBehaviour
         Debug.Log(Settings.power);
     }
 
-    public void speed() { // 공격속도
+    public void speed()
+    { // 공격속도
         if (Settings.speed <= 6)
         {
             Settings.speed++;
@@ -86,7 +108,8 @@ public class upgradeSkills : MonoBehaviour
         Debug.Log(Settings.speed);
     }
 
-    public void reflex() { // 순발력
+    public void reflex()
+    { // 순발력
         if (Settings.reflex <= 6)
         {
             Settings.reflex++;
@@ -95,7 +118,8 @@ public class upgradeSkills : MonoBehaviour
         Debug.Log(Settings.reflex);
     }
 
-    public void defence() { // 방어력
+    public void defence()
+    { // 방어력
         if (Settings.defence <= 6)
         {
             Settings.defence++;
@@ -104,7 +128,8 @@ public class upgradeSkills : MonoBehaviour
         Debug.Log(Settings.defence);
     }
 
-    public void invincibility() { // 만인지적
+    public void invincibility()
+    { // 만인지적
         if (Settings.invincibility <= 6)
         {
             Settings.invincibility++;

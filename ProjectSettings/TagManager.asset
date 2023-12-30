@@ -43,9 +43,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Rear
-    uniqueID: 264854517
+  - name: Background
+    uniqueID: 3642880743
     locked: 0
-  - name: Front
-    uniqueID: 4182373771
+  - name: Sprite
+    uniqueID: 1432082887
+    locked: 0
+  - name: UI
+    uniqueID: 817328127
     locked: 0

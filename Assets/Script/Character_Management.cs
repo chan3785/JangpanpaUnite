@@ -49,6 +49,6 @@ public class Character_Management : MonoBehaviour
     }
 
     void Update() {
-        Debug.Log(Settings.caoRen);    
+        Debug.Log(Settings.caoHong);    
     }
 }

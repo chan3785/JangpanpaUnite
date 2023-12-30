@@ -22,9 +22,8 @@ public class Settings : MonoBehaviour
     void Start()
     {
         zhangFei = true;
-        caoRen = false;
-        caoHong = false;
-        zhangLiao = false;
+        caoRen = false; caoHong = false;
+        zhangLiao= false;
     }
 
     // Update is called once per frame
