@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        // Debug.Log("1");
+         //Debug.Log("1");
         if (collision.CompareTag("Enemy_atk"))
         {
             Hurt();
@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
 
     private void Hurt()
     {
-
+       
         if (Enemy.is_atk)
         {
             if (is_guard)
@@ -197,7 +197,7 @@ public class Player : MonoBehaviour
     }
     private void Died()
     {
-        Debug.Log("died");
+        //Debug.Log("died");
         SceneManager.LoadScene("MainScene");
     }
 

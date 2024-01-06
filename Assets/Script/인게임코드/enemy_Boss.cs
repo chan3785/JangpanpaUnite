@@ -23,7 +23,27 @@ public class enemy_Boss : Enemy
     private int randValue;
 
     private Animator ani;
+
+    public int parryProbability;
+    private float atkTimer;
     // Start is called before the first frame update
+
+    
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        //Debug.Log("k");
+        if (collision.CompareTag("Player"))
+        {
+            if (Player.is_atk)
+            {
+                Debug.Log("hit");
+                hit();
+                Player.is_atk = false;
+            }
+        }
+    }
+
+    
     void Start()
     {
         ani = GetComponent<Animator>();
@@ -32,30 +52,40 @@ public class enemy_Boss : Enemy
         hp = fullHp;
         walkPattern1 = false; walkPattern2 = false;
         isAtk = false;
+        parryProbability = 30;
     }
 
     private void activateTimer()
     {
         timer += Time.deltaTime;
-        Debug.Log(timer);
+        //Debug.Log(timer);
     }
+
+    private void activateAtkTimer()
+    {
+        atkTimer += Time.deltaTime;
+        //Debug.Log(atkTimer);
+    }
+
     private void decrease_atk1Num()
     {
         atk1Num--;
         Debug.Log(atk1Num);
     }
     private void decrease_atk2Num() {  atk2Num--;
-    Debug.Log(atk2Num);}
+    //Debug.Log(atk2Num);
+    
+    }
     private void Atk1()
     {
         
-        
+        Enemy.is_atk = true;
         ani.SetInteger("atk1", atk1Num);
     }
     private void Atk2()
     {
-        
-        
+
+        Enemy.is_atk = true;
         ani.SetInteger("atk2", atk2Num);
     }
 
@@ -75,7 +105,8 @@ public class enemy_Boss : Enemy
         
     }
 
-    private void hurt()
+    
+    private void hurtt()
     {
         if(hp > 0) {
         hp--;
@@ -83,6 +114,68 @@ public class enemy_Boss : Enemy
         else
         {
             Debug.Log("boss_died");
+        }
+    }
+    
+    private void shield()
+    {
+        ani.SetBool("shield", true);
+        
+    }
+    private void parry()
+    {
+        ani.SetBool("parry", true);
+    }
+    public void hurt()
+    {
+        
+        
+        if (Player.atk_type)
+        {
+            hp -= 2;
+        }
+        else
+        {
+            hp -= 1;
+        }
+        if (hp <= 0)
+        {
+            dead();
+        }
+
+
+        Debug.Log("enemy hurt: " + hp);
+        
+    }
+
+    private void hit()
+    {
+        if(atkTimer < 2) 
+        {
+            if (Random.Range(0, 100) < parryProbability)
+            {
+                parry();
+            }
+            else
+            {
+                hurt();
+            }
+        
+        }
+        else if (atkTimer < 3)
+        {
+            parry();
+        }
+        else 
+        {
+            if (Random.Range(0, 100) < parryProbability)
+            {
+                parry();
+            }
+            else
+            {
+                parry();
+            }
         }
     }
     // Update is called once per frame
@@ -146,6 +239,7 @@ public class enemy_Boss : Enemy
             if ((atk1Num > 0) || (atk2Num > 0))
             {
                 isAtk = true;
+                atkTimer = 0;
             }
             else
             {
@@ -156,26 +250,30 @@ public class enemy_Boss : Enemy
             if(!isAtk)
             {
                 activateTimer();
+                activateAtkTimer();
                 if (timer >= 1)
                 {
                     timer = 0;
-                    randValue = Random.Range(1,11);
+                    if (Random.Range(0, 2) == 1)
+                    {
+                        randValue = Random.Range(1, 11);
 
-                    if(randValue >= 9)
-                    {
-                        atk2Num = 3;
-                    }
-                    else if(randValue >= 6)
-                    {
-                        atk2Num = 2;
-                    }
-                    else
-                    {
-                        atk2Num = 1;
-                    }
+                        if (randValue >= 9)
+                        {
+                            atk2Num = 3;
+                        }
+                        else if (randValue >= 6)
+                        {
+                            atk2Num = 2;
+                        }
+                        else
+                        {
+                            atk2Num = 1;
+                        }
 
-                    atk1Num = Random.Range(0, 2);
-                    
+                        atk1Num = Random.Range(0, 2);
+                        
+                    }
 
                 }
             }
@@ -190,12 +288,19 @@ public class enemy_Boss : Enemy
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            hurt();
+            hurtt();
             
         }
 
         
     }
 
-    
+    private void aniParryInit()
+    {
+        ani.SetBool("parry", false);
+    }
+    private void aniShieldInit()
+    {
+        ani.SetBool("shield", false);
+    }
 }
