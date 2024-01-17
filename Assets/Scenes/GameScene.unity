@@ -2822,6 +2822,7 @@ GameObject:
   - component: {fileID: 632763532}
   - component: {fileID: 632763536}
   - component: {fileID: 632763535}
+  - component: {fileID: 632763537}
   m_Layer: 5
   m_Name: AttackButton
   m_TagString: Untagged
@@ -2893,7 +2894,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 632763533}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 632763537}
+        m_TargetAssemblyTypeName: Setting_Toggle, Assembly-CSharp
+        m_MethodName: Vibrate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &632763533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2941,7 +2954,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 632763530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4bb13f161a479d44a265c7b62c2fbfe, type: 3}
+  m_Script: {fileID: 11500000, guid: f8db1ae93dc45b94db8b2f714cc0bfdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &632763536
@@ -2989,6 +3002,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &632763537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632763530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09f327abbf090b247a798be29981ca55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &650354338
 GameObject:
   m_ObjectHideFlags: 0
@@ -3079,6 +3104,7 @@ GameObject:
   - component: {fileID: 657003892}
   - component: {fileID: 657003896}
   - component: {fileID: 657003895}
+  - component: {fileID: 657003897}
   m_Layer: 5
   m_Name: ShieldButton
   m_TagString: Untagged
@@ -3150,7 +3176,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 657003893}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 657003897}
+        m_TargetAssemblyTypeName: Setting_Toggle, Assembly-CSharp
+        m_MethodName: Vibrate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &657003893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3243,10 +3281,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 657003890}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6147212b62babeb44a74c83fa119e845, type: 3}
+  m_Script: {fileID: 11500000, guid: c0d9748ff9a6e8b4ab292268ebc8c204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   can_Parrying: 0
+--- !u!114 &657003897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657003890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09f327abbf090b247a798be29981ca55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &700645545
 GameObject:
   m_ObjectHideFlags: 0
@@ -5674,14 +5724,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1296794008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca3172bede43dc442986374717dfdefd, type: 3}
+  m_Script: {fileID: 11500000, guid: b02ed9b5a72a38547acbbcae8b379da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hps:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  subHps:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -7382,7 +7428,7 @@ SpriteRenderer:
   m_Size: {x: 2.1, y: 1.3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1634308284
@@ -7417,14 +7463,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488709e7a49a0294585441e119ce4aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  hp: 0
-  atk: 0
-  subHp: 0
-  atkSpeed: 1
-  timer: 0
-  walkSpeed: 3
-  inaction: 0
 --- !u!1 &1651814361
 GameObject:
   m_ObjectHideFlags: 0
