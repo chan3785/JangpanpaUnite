@@ -53,22 +53,28 @@ public class Ingame_atk_Button : MonoBehaviour
 
     public void button_Down()
     {
-        is_Click = true;
+        if (Player.canBehave)
+        {
+            is_Click = true;
+        }
     }
 
     public void button_Up()
     {
-        is_Click = false;
-        if (ActivatelongAtk && time > min_time)
+        if (Player.canBehave)
         {
-            //Debug.Log("atk2");
-            player.SendMessage("Attack2");
-        }
-        else
-        {
-            //Debug.Log("atk1");
-            player.SendMessage("Attack1");
+            is_Click = false;
+            if (ActivatelongAtk && time > min_time)
+            {
+                //Debug.Log("atk2");
+                player.SendMessage("Attack2");
+            }
+            else
+            {
+                //Debug.Log("atk1");
+                player.SendMessage("Attack1");
 
+            }
         }
     }
 }

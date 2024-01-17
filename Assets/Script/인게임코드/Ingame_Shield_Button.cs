@@ -29,7 +29,7 @@ public class Ingame_Shield_Button : MonoBehaviour
 
         if (is_Click)
         {
-            if (!Sword.Parrying || time > parrying_time)
+            if ( time > parrying_time)
             {
                 //Debug.Log("shiled");
                 //can_Parrying = false;
@@ -56,14 +56,19 @@ public class Ingame_Shield_Button : MonoBehaviour
 
     public void button_Down()
     {
-        //Debug.Log(1);
-        is_Click = true;
-        player.SendMessage("Guard");
+        if (Player.canBehave) {
+            //Debug.Log(1);
+            is_Click = true;
+            player.SendMessage("Guard");
+            }
     }
 
     public void button_Up()
     {
-        is_Click = false;
-        player.SendMessage("Guard_off");
+        if (Player.canBehave)
+        {
+            is_Click = false;
+            player.SendMessage("Guard_off");
+        }
     }
 }

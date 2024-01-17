@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 {
     public AudioSource aud;
 
-    public AudioClip[] audios  = new AudioClip[9];
+    public AudioClip[] audios  = new                                                                                                                                                            AudioClip[9];
 
     public GameObject[] hps = new GameObject[3];
     public GameObject[] subHps = new GameObject[3];
@@ -23,6 +23,12 @@ public class Player : MonoBehaviour
 
     private bool can_Parrying, is_guard;
 
+    public static bool canBehave;
+    public GameObject canBehavetxt;
+    private float timer;
+
+
+    public GameObject stone;
     Animator anim;
     public int Hp
     {
@@ -64,11 +70,18 @@ public class Player : MonoBehaviour
         {
             Hurt();
         }
+        if (collision.CompareTag("enemyStone"))
+        {
+            Debug.Log("ZZ");
+            Hurt();
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
+
+        
         aud = gameObject.GetComponent<AudioSource>();
 
         hps[0] = GameObject.Find("HPBar (1)");
@@ -88,9 +101,11 @@ public class Player : MonoBehaviour
         is_atk = false;
 
 
-        can_Parrying = false; is_guard = false;
+        can_Parrying = false; is_guard = false;canBehave = true;
 
         Hp = 3;
+
+       
     }
 
     // Update is called once per frame
@@ -105,21 +120,41 @@ public class Player : MonoBehaviour
         }
 
         //Debug.Log(can_Parrying);
+
+        if (!canBehave)
+        {
+            canBehavetxt.SetActive(true);
+            timer += Time.deltaTime;
+            if (timer > 2)
+            {
+                canBehave = true;
+            }
+
+        }
+        else
+        {
+            canBehavetxt.SetActive(false);
+            timer = 0;
+        }
+        //Debug.Log(can_Parrying);
     }
 
     private void Attack1()
     {
-        anim.SetInteger("atkType", Random.Range(1,3));
-        anim.SetBool("Atk1", true);
-        is_atk = true;
-        atk_type = false;
-        Invoke("ani_init", 0.5f);
-        //Debug.Log(Atk);
-        useSubHp();
+        
+            anim.SetInteger("atkType", Random.Range(1, 3));
+            anim.SetBool("Atk1", true);
+            is_atk = true;
+            atk_type = false;
+            Invoke("ani_init", 0.5f);
+            //Debug.Log(Atk);
+            useSubHp();
+        
     }
 
     private void Attack2()
     {
+        
         anim.SetBool("Atk2_", true);
         is_atk = true;
         atk_type = true;
@@ -194,11 +229,56 @@ public class Player : MonoBehaviour
             }
             Enemy.is_atk = false;
         }
+        if(enemy_Boss.isThrowing)
+        {
+            if (is_guard)
+            {
+                if (can_Parrying)
+                {
+                    Debug.Log("parrying");
+                    stone.SendMessage("playerThrow");
+                    anim.SetBool("succeed", true);
+                }
+                else
+                {
+                    Debug.Log("guard");
+                    hp -= 2;
+                    subHp += 2;
+                    anim.SetBool("succeed", true);
+
+                }
+            }
+
+
+
+            else
+            {
+                anim.SetBool("hurt", true);
+                hp -= 2;
+                subHp = 0;
+                Invoke("ani_init", 0.1f);
+                //Debug.Log("Player Hurt: "+hp);
+                if (hp <= 0)
+                {
+                    Died();
+
+                }
+
+            }
+            for (int i = 0; i < hp; i++)
+            {
+                hps[i].SetActive(true);
+            }
+            for (int i = hp; i < 3; i++)
+            {
+                hps[i].SetActive(false);
+            }
+        }
     }
     private void Died()
     {
         //Debug.Log("died");
-        SceneManager.LoadScene("MainScene");
+        //SceneManager.LoadScene("MainScene");
     }
 
     private void Guard()
@@ -240,11 +320,16 @@ public class Player : MonoBehaviour
     {
         anim.SetBool("Atk2", false);
         anim.SetBool("Atk1", false);
-        anim.SetBool("Atk2_", false);
+        //anim.SetBool("Atk2_", false);
         anim.SetBool("hurt", false);
         anim.SetBool("succeed", false);
 
         is_atk = false;
+    }
+
+    private void aniAtk2_Init()
+    {
+        anim.SetBool("Atk2_", false);
     }
 
     private void audioParry()

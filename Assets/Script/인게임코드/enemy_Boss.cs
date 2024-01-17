@@ -26,19 +26,59 @@ public class enemy_Boss : Enemy
 
     public int parryProbability;
     private float atkTimer;
+
+    private bool canHit;
+    private float hitTimer;
+
+    public static bool isThrowing;
+    private float throwTimer;
+    public GameObject stone;
+    private bool canParryStone;
     // Start is called before the first frame update
 
-    
+    public AudioSource aud;
+
+    public AudioClip[] audios = new AudioClip[9];
     public void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("k");
         if (collision.CompareTag("Player"))
         {
-            if (Player.is_atk)
+            Debug.Log("hit");
+            if (canHit)
             {
-                Debug.Log("hit");
+                //Debug.Log("hit");
                 hit();
-                Player.is_atk = false;
+                //Player.is_atk = false;
+                canHit = false;
+                hitTimer = 0;
+            }
+        }
+        if (collision.CompareTag("playerStone"))
+        {
+            //Debug.Log("hit");
+            if(canParryStone)
+            {
+                ani.SetBool("parry", true);
+                ani.Play("parry");
+                stoneThrow();
+                canParryStone = false;
+            }
+            else
+            {
+                if(canHit)
+                {
+                    ani.SetBool("hurt", true);
+                    ani.Play("hurt");
+                    hp -= 2;
+                    
+                    if (hp <= 0)
+                    {
+                        dead();
+                    }
+                    canHit = false;
+                    hitTimer = 0;
+                }
             }
         }
     }
@@ -46,6 +86,7 @@ public class enemy_Boss : Enemy
     
     void Start()
     {
+        aud = gameObject.GetComponent<AudioSource>();
         ani = GetComponent<Animator>();
         fullHp = 20;
         walkForward = true;
@@ -53,6 +94,9 @@ public class enemy_Boss : Enemy
         walkPattern1 = false; walkPattern2 = false;
         isAtk = false;
         parryProbability = 30;
+        canHit = true;
+        isThrowing = false;
+        stone.SetActive(false);
     }
 
     private void activateTimer()
@@ -61,12 +105,23 @@ public class enemy_Boss : Enemy
         //Debug.Log(timer);
     }
 
+    private void activateThrowTimer()
+    {
+        throwTimer -= Time.deltaTime;
+        //Debug.Log(throwTimer);
+    }
+
     private void activateAtkTimer()
     {
         atkTimer += Time.deltaTime;
         //Debug.Log(atkTimer);
     }
 
+    private void activateHitTimer()
+    {
+        hitTimer += Time.deltaTime;
+        //Debug.Log(hitTimer);
+    }
     private void decrease_atk1Num()
     {
         atk1Num--;
@@ -89,18 +144,37 @@ public class enemy_Boss : Enemy
         ani.SetInteger("atk2", atk2Num);
     }
 
-    
+
+    public void stoneThrow()
+    {
+        
+        
+            stone.SetActive(true);
+            stone.SendMessage("bossThrow");
+            isThrowing = true;
+        
+    }
     private void backStep()
     {
-        if (transform.position.x < -1)
+        if (transform.position.x < 1)
         {
             //walkBack = false;
-
+            throwTimer = 5;
             transform.Translate(new Vector3(walkSpeed * Time.deltaTime, 0, 0));
+            canParryStone = true;
         }
-        else if (walkPattern1)
+        else
         {
-
+            if (!isThrowing)
+            {
+                ani.SetBool("throw", true);
+                stoneThrow();
+            }
+            
+                
+            
+            
+            
         }
         
     }
@@ -119,17 +193,22 @@ public class enemy_Boss : Enemy
     
     private void shield()
     {
+        Debug.Log("shield");
         ani.SetBool("shield", true);
+        ani.Play("shield");
         
     }
     private void parry()
     {
         ani.SetBool("parry", true);
+        ani.Play("parry");
+        Player.canBehave = false;
     }
     public void hurt()
     {
-        
-        
+
+        ani.SetBool("hurt", true);
+        ani.Play("hurt");
         if (Player.atk_type)
         {
             hp -= 2;
@@ -147,9 +226,11 @@ public class enemy_Boss : Enemy
         Debug.Log("enemy hurt: " + hp);
         
     }
+    
 
     private void hit()
     {
+        Debug.Log("hit in");
         if(atkTimer < 2) 
         {
             if (Random.Range(0, 100) < parryProbability)
@@ -179,6 +260,8 @@ public class enemy_Boss : Enemy
         }
     }
     // Update is called once per frame
+
+    
     void Update()
     {
         //Debug.Log(walkBack);
@@ -202,12 +285,12 @@ public class enemy_Boss : Enemy
         else if (hp == fullHp / 2 && !walkPattern1)
         {
             walkBack = true;
-            walkPattern1 = true; walkPattern2 = false;
+            walkPattern1 = true; walkPattern2 = false;isThrowing = false;
         }
         else if (hp == 6 && !walkPattern2)
         {
             walkBack = true;
-            walkPattern1 =false; walkPattern2 = true;
+            walkPattern1 =false; walkPattern2 = true;isThrowing=false;
         }
 
         else if (walkBack && !isAtk)
@@ -280,8 +363,18 @@ public class enemy_Boss : Enemy
 
             Atk1();
             Atk2();
-        }
 
+            if (!canHit)
+            {
+                activateHitTimer();
+                if(hitTimer >= 0.5)
+                {
+                    canHit = true;
+                    hitTimer = 0;
+                }
+            }
+        }
+        //Debug.Log(canHit);
         
         
 
@@ -303,4 +396,68 @@ public class enemy_Boss : Enemy
     {
         ani.SetBool("shield", false);
     }
+
+    private void aniHurtInit()
+    {
+        ani.SetBool("hurt", false);
+    }
+
+
+    private void aniThrowInit()
+    {
+        ani.SetBool("throw", false);
+    }
+    private void audioAtk1()
+    {
+        aud.clip = audios[0];
+        if (!aud.isPlaying)
+        {
+            aud.Play();
+        }
+    }
+
+    private void audioAtk2_1()
+    {
+        aud.clip = audios[3];
+        if (!aud.isPlaying)
+        {
+            aud.Play();
+        }
+    }
+
+    private void audioAtk2_2()
+    {
+        aud.clip = audios[4];
+        
+        aud.Play();
+        
+    }
+
+    private void audioShield()
+    {
+        aud.clip = audios[7];
+        if (!aud.isPlaying)
+        {
+            aud.Play();
+        }
+    }
+
+    private void audioParry()
+    {
+        aud.clip = audios[8];
+        if (!aud.isPlaying)
+        {
+            aud.Play();
+        }
+    }
+
+    private void audioThrowStone()
+    {
+        aud.clip = audios[5];
+        if (!aud.isPlaying)
+        {
+            aud.Play();
+        }
+    }
+
 }
