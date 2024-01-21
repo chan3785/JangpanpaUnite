@@ -48,3 +48,6 @@ TagManager:
   - name: front
     uniqueID: 3642880743
     locked: 0
+  - name: sprite
+    uniqueID: 1486927021
+    locked: 0

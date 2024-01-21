@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class upgradeSkills : MonoBehaviour
 {
     int count;
+    AudioSource sound;
     public Sprite after_img;
     public Sprite before_img;
 
@@ -18,6 +19,7 @@ public class upgradeSkills : MonoBehaviour
 
     void Start()
     {
+        sound = GetComponent<AudioSource>();
         count = 0;
     }
 
@@ -27,7 +29,7 @@ public class upgradeSkills : MonoBehaviour
         {
             count++;
         }
-        Debug.Log(count);
+        //Debug.Log(count);
         switch (count)
         {
             case 1:
@@ -80,9 +82,11 @@ public class upgradeSkills : MonoBehaviour
 
     public void health()
     { // 체력
-        if (Settings.health <= 6)
+        if (Settings.health < 6)
         {
             Settings.health++;
+            sound.Play();
+            Debug.Log("효과음");
         }
         Debug.Log("Health");
         Debug.Log(Settings.health);
@@ -90,9 +94,11 @@ public class upgradeSkills : MonoBehaviour
 
     public void power()
     { // 공격력
-        if (Settings.power <= 6)
+        if (Settings.power < 6)
         {
             Settings.power++;
+            sound.Play();
+            Debug.Log("효과음");
         }
         Debug.Log("Power");
         Debug.Log(Settings.power);
@@ -100,9 +106,11 @@ public class upgradeSkills : MonoBehaviour
 
     public void speed()
     { // 공격속도
-        if (Settings.speed <= 6)
+        if (Settings.speed < 6)
         {
             Settings.speed++;
+            sound.Play();
+            Debug.Log("효과음");
         }
         Debug.Log("Speed");
         Debug.Log(Settings.speed);
@@ -110,9 +118,11 @@ public class upgradeSkills : MonoBehaviour
 
     public void reflex()
     { // 순발력
-        if (Settings.reflex <= 6)
+        if (Settings.reflex < 6)
         {
             Settings.reflex++;
+            sound.Play();
+            Debug.Log("효과음");
         }
         Debug.Log("Reflex");
         Debug.Log(Settings.reflex);
@@ -120,9 +130,11 @@ public class upgradeSkills : MonoBehaviour
 
     public void defence()
     { // 방어력
-        if (Settings.defence <= 6)
+        if (Settings.defence < 6)
         {
             Settings.defence++;
+            sound.Play();
+            Debug.Log("효과음");
         }
         Debug.Log("Defence");
         Debug.Log(Settings.defence);
@@ -130,9 +142,11 @@ public class upgradeSkills : MonoBehaviour
 
     public void invincibility()
     { // 만인지적
-        if (Settings.invincibility <= 6)
+        if (Settings.invincibility < 6)
         {
             Settings.invincibility++;
+            sound.Play();
+            Debug.Log("효과음");
         }
         Debug.Log("Invincibility");
         Debug.Log(Settings.invincibility);

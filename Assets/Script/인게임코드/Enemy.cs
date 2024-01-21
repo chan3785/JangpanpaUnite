@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
 
 
 
-
+    public static int enemyKillCount = 0;
     public Player player = new Player();
 
     public int hp, atk, subHp;
@@ -44,6 +44,7 @@ public class Enemy : MonoBehaviour
     public void walk()
     {
         transform.Translate(new Vector3(-walkSpeed * Time.deltaTime, 0, 0));
+        
     }
 
     public void hurt()

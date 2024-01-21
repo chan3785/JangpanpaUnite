@@ -1,4 +1,3 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,8 +12,9 @@ public class Player : MonoBehaviour
 
     public AudioClip[] audios  = new                                                                                                                                                            AudioClip[9];
 
-    public GameObject[] hps = new GameObject[3];
-    public GameObject[] subHps = new GameObject[3];
+    public GameObject[] hps = new GameObject[9];
+    public GameObject[] subHps = new GameObject[9];
+    public GameObject[] black = new GameObject[6];
 
 
     private int hp, atk, atkSpeed, specialSkillGage, subHp;
@@ -72,7 +72,6 @@ public class Player : MonoBehaviour
         }
         if (collision.CompareTag("enemyStone"))
         {
-            Debug.Log("ZZ");
             Hurt();
         }
     }
@@ -81,39 +80,83 @@ public class Player : MonoBehaviour
     void Start()
     {
 
+        Hp = 3 + Settings.health;
         
         aud = gameObject.GetComponent<AudioSource>();
 
         hps[0] = GameObject.Find("HPBar (1)");
         hps[1] = GameObject.Find("HPBar (2)");
         hps[2] = GameObject.Find("HPBar (3)");
+        hps[3] = GameObject.Find("HPBar (4)");
+        hps[4] = GameObject.Find("HPBar (5)");
+        hps[5] = GameObject.Find("HPBar (6)");
+        hps[6] = GameObject.Find("HPBar (7)");
+        hps[7] = GameObject.Find("HPBar (8)");
+        hps[8] = GameObject.Find("HPBar (9)");
+
 
 
         SubHp = 0;
         subHps[0] = GameObject.Find("SubHPBar (1)");
         subHps[1] = GameObject.Find("SubHPBar (2)");
         subHps[2] = GameObject.Find("SubHPBar (3)");
+        subHps[3] = GameObject.Find("SubHPBar (4)");
+        subHps[4] = GameObject.Find("SubHPBar (5)");
+        subHps[5] = GameObject.Find("SubHPBar (6)");
+        subHps[6] = GameObject.Find("SubHPBar (7)");
+        subHps[7] = GameObject.Find("SubHPBar (8)");
+        subHps[8] = GameObject.Find("SubHPBar (9)");
+        
+        black[0] = GameObject.Find("base (9)");
+        black[1] = GameObject.Find("base (8)");
+        black[2] = GameObject.Find("base (7)");
+        black[3] = GameObject.Find("base (6)");
+        black[4] = GameObject.Find("base (5)");
+        black[5] = GameObject.Find("base (4)");
+
+
+        for (int i = 8; i >=Hp; i--)
+        {
+            hps[i].SetActive(false);
+        }
         subHps[0].SetActive(false);
         subHps[1].SetActive(false);
         subHps[2].SetActive(false);
+        subHps[3].SetActive(false);
+        subHps[4].SetActive(false);
+        subHps[5].SetActive(false);
+        subHps[6].SetActive(false);
+        subHps[7].SetActive(false);
+        subHps[8].SetActive(false);
 
+        for(int i = 0; i< Settings.health; i++)
+        {
+            black[i].SetActive(false);
+        }
 
         is_atk = false;
 
 
         can_Parrying = false; is_guard = false;canBehave = true;
 
-        Hp = 3;
 
        
+    }
+
+    private void Debug(int health)
+    {
+        throw new System.NotImplementedException();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         subHps[0].SetActive(false);
         subHps[1].SetActive(false);
         subHps[2].SetActive(false);
+        subHps[3].SetActive(false);
+
         for (int i = 0; i < subHp; i++)
         {
             subHps[i].SetActive(true);
@@ -190,12 +233,10 @@ public class Player : MonoBehaviour
             {
                 if (can_Parrying)
                 {
-                    Debug.Log("parrying");
                     anim.SetBool("succeed", true);
                 }
                 else
                 {
-                    Debug.Log("guard");
                     hp -= 1;
                     subHp += 1;
                     anim.SetBool("succeed", true);
@@ -235,13 +276,11 @@ public class Player : MonoBehaviour
             {
                 if (can_Parrying)
                 {
-                    Debug.Log("parrying");
                     stone.SendMessage("playerThrow");
                     anim.SetBool("succeed", true);
                 }
                 else
                 {
-                    Debug.Log("guard");
                     hp -= 2;
                     subHp += 2;
                     anim.SetBool("succeed", true);
@@ -277,8 +316,7 @@ public class Player : MonoBehaviour
     }
     private void Died()
     {
-        //Debug.Log("died");
-        //SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("MainScene");
     }
 
     private void Guard()

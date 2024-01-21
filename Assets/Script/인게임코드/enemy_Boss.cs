@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class enemy_Boss : Enemy
 {
@@ -154,11 +155,20 @@ public class enemy_Boss : Enemy
             isThrowing = true;
         
     }
+    public void walk()
+    {
+        transform.Translate(new Vector3(-walkSpeed * Time.deltaTime, 0, 0));
+        ani.SetBool("walk", true);
+        ani.Play("walk");
+
+    }
     private void backStep()
     {
         if (transform.position.x < 1)
         {
             //walkBack = false;
+            ani.SetBool("walk", true);
+            ani.Play("walk");
             throwTimer = 5;
             transform.Translate(new Vector3(walkSpeed * Time.deltaTime, 0, 0));
             canParryStone = true;
@@ -170,7 +180,7 @@ public class enemy_Boss : Enemy
                 ani.SetBool("throw", true);
                 stoneThrow();
             }
-            
+            ani.SetBool("walk", false);
                 
             
             
@@ -180,16 +190,19 @@ public class enemy_Boss : Enemy
     }
 
     
-    private void hurtt()
-    {
-        if(hp > 0) {
-        hp--;
-        }
-        else
-        {
-            Debug.Log("boss_died");
-        }
-    }
+    //private void hurtt() ÀÌ°Ô ¹¹ÀÓ?
+    //{
+    //    if(hp > 0) {
+    //    hp--;
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("boss_died");
+    //        ani.SetBool("die", true);
+    //        ani.Play("die");
+
+    //    }
+    //}
     
     private void shield()
     {
@@ -219,8 +232,11 @@ public class enemy_Boss : Enemy
         }
         if (hp <= 0)
         {
+            ani.SetBool("die", true);
+            ani.Play("die");
             dead();
         }
+            
 
 
         Debug.Log("enemy hurt: " + hp);
@@ -278,6 +294,8 @@ public class enemy_Boss : Enemy
                     
                 }
                 walkForward=false;
+                ani.SetBool("walk", false);
+
             }
         }
 
@@ -286,22 +304,29 @@ public class enemy_Boss : Enemy
         {
             walkBack = true;
             walkPattern1 = true; walkPattern2 = false;isThrowing = false;
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
         }
         else if (hp == 6 && !walkPattern2)
         {
             walkBack = true;
             walkPattern1 =false; walkPattern2 = true;isThrowing=false;
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
         }
 
         else if (walkBack && !isAtk)
         {
             backStep();
+
             activateTimer();
             if (walkPattern1)
             {
                 if (timer >= 10)
                 {
                     timer = 0; walkForward = true; walkBack = false;
+                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
                 }
             }
             if (walkPattern2)
@@ -311,14 +336,16 @@ public class enemy_Boss : Enemy
                     if (Random.Range(0, 2) == 1)
                     {
                         timer = 0; walkForward = true; walkBack = false;
-                    }
+                        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+}
                 }
             }
             
 
         }
         else
-        {
+{
             if ((atk1Num > 0) || (atk2Num > 0))
             {
                 isAtk = true;
@@ -381,7 +408,8 @@ public class enemy_Boss : Enemy
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            hurtt();
+            //hurtt();
+            hurt();
             
         }
 
