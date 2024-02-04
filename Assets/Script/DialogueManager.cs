@@ -29,6 +29,8 @@ public class DialogueManager : MonoBehaviour
     {
         nextButton.onClick.AddListener(OnButtonClick);
     }
+
+
     void OnButtonClick()
     {
         isButtonPressed = true;
@@ -48,6 +50,7 @@ public class DialogueManager : MonoBehaviour
     }
     public void Update()
     {
+        Debug.Log(isDialogue);
         if (isDialogue)
         {
             if (isNext)
@@ -116,6 +119,7 @@ public class DialogueManager : MonoBehaviour
         SettingUI(false);
         CharacterSet(zhangfei, "장비");                // 캐릭터 키고 끄는 거
         CharacterSet(caoren, "조인");
+        CharacterSet(caocao_Army, "조조군");
         Time.timeScale = 1;
 
         if (isOpening)
@@ -137,6 +141,7 @@ public class DialogueManager : MonoBehaviour
         txt_Name.text = dialogues[lineCount].name;
         CharacterSet(zhangfei, "장비");                // 캐릭터 키고 끄는 거
         CharacterSet(caoren, "조인");
+        CharacterSet(caocao_Army, "조조군");
         for (int i = 0; i < t_ReplaceText.Length; i++)
         {
             txt_Dialogue.text += t_ReplaceText[i];
