@@ -37,6 +37,8 @@ public class enemy_Boss : Enemy
     private bool canParryStone;
     // Start is called before the first frame update
 
+    public GameObject boss;
+
     public AudioSource aud;
 
     public AudioClip[] audios = new AudioClip[9];
@@ -109,7 +111,7 @@ public class enemy_Boss : Enemy
     private void activateThrowTimer()
     {
         throwTimer -= Time.deltaTime;
-        //Debug.Log(throwTimer);
+        Debug.Log(throwTimer);
     }
 
     private void activateAtkTimer()
@@ -128,8 +130,9 @@ public class enemy_Boss : Enemy
         atk1Num--;
         Debug.Log(atk1Num);
     }
-    private void decrease_atk2Num() {  atk2Num--;
-    //Debug.Log(atk2Num);
+    private void decrease_atk2Num() 
+    {  atk2Num--;
+    Debug.Log(atk2Num);
     
     }
     private void Atk1()
@@ -167,42 +170,36 @@ public class enemy_Boss : Enemy
         if (transform.position.x < 1)
         {
             //walkBack = false;
-            ani.SetBool("walk", true);
-            ani.Play("walk");
+            ani.SetBool("walkBack", true);
+            ani.Play("walkBack");
             throwTimer = 5;
             transform.Translate(new Vector3(walkSpeed * Time.deltaTime, 0, 0));
             canParryStone = true;
         }
         else
         {
+            
             if (!isThrowing)
             {
-                ani.SetBool("throw", true);
-                stoneThrow();
+                activateThrowTimer();
+                if (throwTimer < 4f)
+                {
+                    ani.SetBool("throw", true);
+                    stoneThrow();
+                    throwTimer = 5;
+                }
             }
             ani.SetBool("walk", false);
-                
-            
-            
-            
+            //transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+
+
         }
         
     }
 
     
-    //private void hurtt() ÀÌ°Ô ¹¹ÀÓ?
-    //{
-    //    if(hp > 0) {
-    //    hp--;
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("boss_died");
-    //        ani.SetBool("die", true);
-    //        ani.Play("die");
-
-    //    }
-    //}
+    
     
     private void shield()
     {
@@ -243,7 +240,15 @@ public class enemy_Boss : Enemy
         
     }
     
+    private void dead()
+    {
+        ani.Play("die");
+    }
 
+    public void anidead()
+    {
+        boss.SetActive(false);
+    }
     private void hit()
     {
         Debug.Log("hit in");
@@ -304,14 +309,14 @@ public class enemy_Boss : Enemy
         {
             walkBack = true;
             walkPattern1 = true; walkPattern2 = false;isThrowing = false;
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            
 
         }
         else if (hp == 6 && !walkPattern2)
         {
             walkBack = true;
             walkPattern1 =false; walkPattern2 = true;isThrowing=false;
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            
 
         }
 
@@ -325,7 +330,7 @@ public class enemy_Boss : Enemy
                 if (timer >= 10)
                 {
                     timer = 0; walkForward = true; walkBack = false;
-                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                    
 
                 }
             }
@@ -336,7 +341,7 @@ public class enemy_Boss : Enemy
                     if (Random.Range(0, 2) == 1)
                     {
                         timer = 0; walkForward = true; walkBack = false;
-                        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                        
 
 }
                 }
@@ -435,6 +440,11 @@ public class enemy_Boss : Enemy
     {
         ani.SetBool("throw", false);
     }
+    
+    private void aniWalkBackInit()
+    {
+        ani.SetBool("walkBack", false);
+    }
     private void audioAtk1()
     {
         aud.clip = audios[0];
@@ -443,6 +453,7 @@ public class enemy_Boss : Enemy
             aud.Play();
         }
     }
+
 
     private void audioAtk2_1()
     {
@@ -487,5 +498,7 @@ public class enemy_Boss : Enemy
             aud.Play();
         }
     }
+
+
 
 }

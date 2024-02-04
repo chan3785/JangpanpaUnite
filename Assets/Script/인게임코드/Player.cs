@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     public GameObject[] black = new GameObject[6];
 
 
-    private int hp, atk, atkSpeed, specialSkillGage, subHp;
+    private int hp, atk, specialSkillGage, subHp;
 
     public static bool is_atk, atk_type;
 
@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
     public GameObject canBehavetxt;
     private float timer;
 
+    public float atkSpeed;
+
+    public GameObject popup;
 
     public GameObject stone;
     Animator anim;
@@ -79,6 +82,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        anim.speed = atkSpeed;
+        popup.SetActive(false); 
 
         Hp = 3 + Settings.health;
         
@@ -313,10 +318,18 @@ public class Player : MonoBehaviour
                 hps[i].SetActive(false);
             }
         }
+        if (hp <= 0)
+        {
+            Died();
+
+        }
     }
     private void Died()
     {
-        SceneManager.LoadScene("MainScene");
+        Time.timeScale = 0;
+        print("died");
+        //SceneManager.LoadScene("MainScene");
+       popup.SetActive(true);
     }
 
     private void Guard()
