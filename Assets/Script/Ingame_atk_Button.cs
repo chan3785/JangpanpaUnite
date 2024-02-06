@@ -12,12 +12,21 @@ public class Ingame_atk_Button : MonoBehaviour
     private bool is_Click;
     private float time;
     private float min_time = 0.5f;
+
+    Animator CaoRen;
+
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("ZhangFei");
-
-
+        if(Settings.zhangFei)
+        {
+            player = GameObject.Find("ZhangFei");
+        }
+        else if(Settings.caoRen)
+        {
+            player = GameObject.Find("CaoRen");
+            CaoRen = GetComponent<Animator>();
+        }
     }
 
     // Update is called once per frame
@@ -45,12 +54,13 @@ public class Ingame_atk_Button : MonoBehaviour
         {
             //Debug.Log("atk2");
             player.SendMessage("Attack2");
+            player.SendMessage("Atk2");
         }
         else
         {
             //Debug.Log("atk1");
             player.SendMessage("Attack1");
-            
+            player.SendMessage("Atk1");
         }
     }
 }

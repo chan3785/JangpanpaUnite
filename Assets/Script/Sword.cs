@@ -34,7 +34,7 @@ public class Sword : Enemy
         isAtk = true;
 
         ani.SetBool("Atk", true);
-
+        
 
 
     }
