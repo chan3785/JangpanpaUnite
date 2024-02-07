@@ -5868,7 +5868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b81908b3a1cad47891655e2a225614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yes: {fileID: 0}
+  yes: {fileID: 1017419937}
   cur_charcter: {fileID: 26113494}
   zhangFei: {fileID: 574659599}
   caoRen: {fileID: 1570343238}
@@ -15689,7 +15689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b81908b3a1cad47891655e2a225614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yes: {fileID: 0}
+  yes: {fileID: 964786824}
   cur_charcter: {fileID: 1570343238}
   zhangFei: {fileID: 574659599}
   caoRen: {fileID: 1570343238}
@@ -30127,7 +30127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b81908b3a1cad47891655e2a225614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yes: {fileID: 0}
+  yes: {fileID: 1696890779}
   cur_charcter: {fileID: 1526735719}
   zhangFei: {fileID: 574659599}
   caoRen: {fileID: 1570343238}
