@@ -7,10 +7,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-
-
-
-    public Player player = new Player();
+    
+    public static int enemyKillCount = 0;
+    
 
     public int hp, atk, subHp;
     public float atkSpeed = 1, timer;
@@ -44,22 +43,12 @@ public class Enemy : MonoBehaviour
     public void walk()
     {
         transform.Translate(new Vector3(-walkSpeed * Time.deltaTime, 0, 0));
+        
     }
 
     public void hurt()
     {
-        if (Player.atk_type)
-        {
-            hp -= player.Atk * 2;
-        }
-        else
-        {
-            hp -= player.Atk;
-        }
-        if (hp <= 0)
-        {
-            dead();
-        }
+        
 
 
         Debug.Log("enemy hurt: " + hp);
@@ -88,11 +77,7 @@ public class Enemy : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            if (Player.is_atk)
-            {
-                hurt();
-                Player.is_atk = false;
-            }
+            
         }
     }
 
@@ -109,7 +94,7 @@ public class Enemy : MonoBehaviour
         timer = 0;
 
         hp = 100;
-        player.Atk = 1;
+        
         //Debug.Log(player.Atk);
 
     }
@@ -142,6 +127,7 @@ public class Enemy : MonoBehaviour
         }
         //Debug.Log(is_atk);
     }
+    
 }
 
 

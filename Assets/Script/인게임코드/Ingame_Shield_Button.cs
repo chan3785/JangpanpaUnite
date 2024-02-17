@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.Rendering;
 using UnityEngine;
 
 
@@ -9,6 +8,7 @@ using UnityEngine;
 public class Ingame_Shield_Button : MonoBehaviour
 {
     private GameObject player;
+    private GameObject play;
 
     private bool is_Click;
     private float time;
@@ -18,6 +18,7 @@ public class Ingame_Shield_Button : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("ZhangFei");
+        play = GameObject.Find("ZhangFei (1)");
 
 
     }
@@ -29,19 +30,21 @@ public class Ingame_Shield_Button : MonoBehaviour
 
         if (is_Click)
         {
-            if (!Sword.Parrying || time > parrying_time)
+            if ( time > parrying_time)
             {
                 //Debug.Log("shiled");
                 //can_Parrying = false;
-                player.SendMessage("parrying_Off");
+                //player.SendMessage("parrying_Off");
                 //time = 0;
+                play.SendMessage("parryOff");
             }
             else
             {
                 //Debug.Log("Parrying");
                 //can_Parrying = true;
                 time += Time.deltaTime;
-                player.SendMessage("parrying_On");
+                //player.SendMessage("parrying_On");
+                play.SendMessage("parryOn");
             }
 
         }
@@ -56,14 +59,21 @@ public class Ingame_Shield_Button : MonoBehaviour
 
     public void button_Down()
     {
-        //Debug.Log(1);
-        is_Click = true;
-        player.SendMessage("Guard");
+        if (newPlayer.canBehave) {
+            //Debug.Log(1);
+            is_Click = true;
+            //player.SendMessage("Guard");
+            play.SendMessage("guard");
+        }
     }
 
     public void button_Up()
     {
-        is_Click = false;
-        player.SendMessage("Guard_off");
+        if (newPlayer.canBehave)
+        {
+            is_Click = false;
+            //player.SendMessage("Guard_off");
+            play.SendMessage("guardOff");
+        }
     }
 }

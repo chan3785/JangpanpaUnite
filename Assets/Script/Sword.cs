@@ -6,7 +6,7 @@ public class Sword : Enemy
 {
 
 
-
+    
 
     public static bool Parrying;
     private bool isAtk;
@@ -118,5 +118,5 @@ public class Sword : Enemy
     }
 
 
-
+    
 }

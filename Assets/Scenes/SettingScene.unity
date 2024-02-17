@@ -655,13 +655,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b207e412f23b144bc7618eefd810fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmTog: {fileID: 65106292}
-  soundTog: {fileID: 1124897372}
-  storyTog: {fileID: 940089056}
-  vibTog: {fileID: 1850635866}
-  tutTog: {fileID: 0}
-  bgm: {fileID: 683031527}
-  sound: {fileID: 1763445471}
 --- !u!4 &520445128
 Transform:
   m_ObjectHideFlags: 0
@@ -1668,7 +1661,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1611558933}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20cfcda6422dcda4d8bf1e1f072de6df, type: 3}
+  m_Script: {fileID: 11500000, guid: 1488863dc08f72a419744296a5c30344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1611558936
@@ -1783,7 +1776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1763445469
 AudioSource:
   m_ObjectHideFlags: 0
