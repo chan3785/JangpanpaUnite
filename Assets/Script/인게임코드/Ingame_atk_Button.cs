@@ -14,6 +14,8 @@ public class Ingame_atk_Button : MonoBehaviour
     private float min_time = 0.3f;
 
     private bool ActivatelongAtk;
+
+    private float timer;
     // Start is called before the first frame update
 
 
@@ -30,7 +32,10 @@ public class Ingame_atk_Button : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(timer >= 0)
+        {
+            timer -= Time.deltaTime;
+        }
 
         if (is_Click)
         {
@@ -58,30 +63,39 @@ public class Ingame_atk_Button : MonoBehaviour
 
     public void button_Down()
     {
-        if (newPlayer.canBehave)
+        if (timer <= 0)
         {
-            is_Click = true;
+            if (newPlayer.canBehave)
+            {
+                is_Click = true;
+
+                timer = 0.4f;
+            }
         }
+        
     }
 
     public void button_Up()
     {
         if (newPlayer.canBehave)
         {
-            is_Click = false;
-            if (ActivatelongAtk && time > min_time)
-            {
+            
+                is_Click = false;
                 
-                //player.SendMessage("Attack2");
-                play.SendMessage("Atk2");
-            }
-            else
-            {
-                
-                //player.SendMessage("Attack1");
-                play.SendMessage("Atk1");
+                if (ActivatelongAtk && time > min_time)
+                {
 
-            }
+                    //player.SendMessage("Attack2");
+                    play.SendMessage("Atk2");
+                }
+                else
+                {
+
+                    //player.SendMessage("Attack1");
+                    play.SendMessage("Atk1");
+
+                }
+            
         }
     }
 }

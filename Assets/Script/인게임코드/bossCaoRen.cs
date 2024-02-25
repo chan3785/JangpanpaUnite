@@ -46,6 +46,8 @@ public class bossCaoRen: MonoBehaviour
 
 
     private AudioSource aud;
+
+    private float hurtTimer;
     /*
     private void Atk1()
     {
@@ -106,18 +108,20 @@ public class bossCaoRen: MonoBehaviour
     
     private void Hurt(string type)
     {
-        if (canHurt)
-        {
-            if (type == "Atk1")
+       
+            if (canHurt)
             {
-                Damage(1);
+                if (type == "Atk1")
+                {
+                    Damage(1);
+                }
+                else if (type == "Atk2")
+                {
+                    Damage(2);
+                }
+
             }
-            else if (type =="Atk2")
-            {
-                Damage(2);
-            }
-            
-        }
+        
         
     }
 
@@ -211,7 +215,7 @@ public class bossCaoRen: MonoBehaviour
                 if(canThrow)
                 {
                     delay += Time.deltaTime;
-                    if (delay > 0.5f)
+                    if (delay > 1f)
                     {
                         Stone.SetActive(true);
                         Stone.SendMessage("bossThrow");
@@ -318,6 +322,7 @@ public class bossCaoRen: MonoBehaviour
 
     private void Update()
     {
+        
         //Debug.Log(walkBack);Debug.Log(patTimer);
         if (!canAtk)
         {

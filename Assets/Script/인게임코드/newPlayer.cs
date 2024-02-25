@@ -31,12 +31,19 @@ public class newPlayer : MonoBehaviour
     public GameObject stone;
 
     public AudioClip[] audios = new AudioClip[9];
+
+    public bool aud2;
+    private bool isAtk;
     private void Atk1()
     {
-        
-        
-        anim.SetInteger("atkType", Random.Range(1, 3));
-        anim.SetBool("Atk1", true);
+
+        if (!isAtk)
+        {
+            anim.SetInteger("atkType", Random.Range(1, 3));
+            anim.SetBool("Atk1", true);
+            aud2 = true;
+            isAtk = true;
+        }
  
     }
 
@@ -63,6 +70,7 @@ public class newPlayer : MonoBehaviour
         Debug.Log(type);
         if (canHurt)
         {
+            isAtk = false;
             if (type == "nAtk")
             {
                 Damage(1);
@@ -191,6 +199,7 @@ public class newPlayer : MonoBehaviour
         isGuard = false;canParry = false;
 
         StatusEffectTimer = 0;
+        isAtk = false;  
 
     }
     private void Start()
@@ -219,7 +228,7 @@ public class newPlayer : MonoBehaviour
             }
         }
         //Debug.Log(canParry);
-        
+        //Debug.Log(canBehave);
     }
 
 
@@ -249,6 +258,7 @@ public class newPlayer : MonoBehaviour
     private void aniAtk1Init()
     {
         anim.SetBool("Atk1", false);
+        isAtk = false;
     }
 
     private void aniAtk3Init()
@@ -277,7 +287,11 @@ public class newPlayer : MonoBehaviour
         aud.clip = audios[1];
         if (!aud.isPlaying)
         {
-            aud.Play();
+            if (aud2)
+            {
+                aud.Play();
+                aud2 = false;
+            }
         }
     }
     private void audioAtk2()
@@ -285,7 +299,11 @@ public class newPlayer : MonoBehaviour
         aud.clip = audios[3];
         if (!aud.isPlaying)
         {
-            aud.Play();
+            if (aud2)
+            {
+                aud.Play();
+                aud2 = false;
+            }
         }
     }
     private void audioAtk3()
