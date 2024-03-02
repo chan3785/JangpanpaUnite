@@ -34,7 +34,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ZhangFeiAtk2
-  m_Speed: 1
+  m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -3571446660054140624}
@@ -142,9 +142,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.31442448
-  m_TransitionOffset: 0
-  m_ExitTime: 0.0066737575
+  m_TransitionDuration: 0.22092263
+  m_TransitionOffset: 0.20978989
+  m_ExitTime: 0.13986002
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -742,9 +742,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0
+  m_TransitionDuration: 0.21290319
+  m_TransitionOffset: 0.4286739
+  m_ExitTime: 0.643011
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

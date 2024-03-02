@@ -15,7 +15,7 @@ public class Sword : Enemy
     public GameObject[] hps = new GameObject[5];
 
     private bool can_Hurt;
-
+    
     Animator ani;
 
 

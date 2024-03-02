@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
-
- 
-
+using UnityEngine.UI;
 
 public class bossCaoRen: MonoBehaviour
 {
-    private int hp;
+
+    public Slider hpSlider;
+    public Text hpText;
+    private float hp, CaoRenHP;
     public float atkSpeed;
 
     public AudioClip[] audios = new AudioClip[9];
@@ -21,6 +21,7 @@ public class bossCaoRen: MonoBehaviour
 
     public GameObject player;
     private GameObject boss;
+    public GameObject bossHp;
 
     public int walkSpeed;
     private bool walkBack;
@@ -176,7 +177,7 @@ public class bossCaoRen: MonoBehaviour
 
     private void Die()
     {
-
+        Debug.Log("died");
     }
 
 
@@ -293,7 +294,8 @@ public class bossCaoRen: MonoBehaviour
 
     private void Awake()  // 변수 초기화
     {
-        hp = 20; 
+        CaoRenHP = 20;
+        hp = CaoRenHP; 
         atkSpeed = 1;
         
         anim = GetComponent<Animator>();
@@ -322,7 +324,9 @@ public class bossCaoRen: MonoBehaviour
 
     private void Update()
     {
-        
+        hpSlider.value = hp / CaoRenHP;
+        hpText.text = hp + " / " + CaoRenHP;
+        //Debug.Log(hp / CaoRenHP);
         //Debug.Log(walkBack);Debug.Log(patTimer);
         if (!canAtk)
         {
@@ -402,7 +406,10 @@ public class bossCaoRen: MonoBehaviour
 
         }
 
-
+        if (hp <= 0)
+        {
+            dead();
+        }
     }
 
 
@@ -427,12 +434,14 @@ public class bossCaoRen: MonoBehaviour
 
     private void dead()
     {
+        aniInit();
         anim.Play("die");
     }
 
     public void anidead()
     {
         boss.SetActive(false);
+        bossHp.SetActive(false);
     }
     private void decrease_atk1Num()
     {
@@ -444,6 +453,12 @@ public class bossCaoRen: MonoBehaviour
         atk2Num--;
         Debug.Log(atk2Num);
 
+    }
+
+    private void aniInit()
+    {
+        anim.SetInteger("atk1", 0); anim.SetInteger("atk2", 0);
+        anim.SetBool("parry", false); anim.SetBool("shield", false); anim.SetBool("hurt", false); anim.SetBool("throw", false);
     }
 
     private void aniParryInit()

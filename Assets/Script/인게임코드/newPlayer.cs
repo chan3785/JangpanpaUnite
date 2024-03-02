@@ -11,6 +11,10 @@ using UnityEngine.UI;
 public class newPlayer : MonoBehaviour
 {
 
+    public GameObject[] hps = new GameObject[9];
+    public GameObject[] subHps = new GameObject[9];
+    public GameObject[] black = new GameObject[6];
+
     private int hp, subHp;
     public float atkSpeed;
     private float atk1Len, atk3Len;
@@ -23,6 +27,8 @@ public class newPlayer : MonoBehaviour
     private bool canHurt;
 
     public GameObject boss;
+
+    public GameObject[] sword = new GameObject[10];
     public GameObject canBehavetxt;
 
     private bool isGuard,canParry;
@@ -34,7 +40,10 @@ public class newPlayer : MonoBehaviour
 
     public bool aud2;
     private bool isAtk;
+
+    public GameObject popup;
     private void Atk1()
+
     {
 
         if (!isAtk)
@@ -49,7 +58,13 @@ public class newPlayer : MonoBehaviour
 
     private void actAtk1()
     {
+        useSubHp();
         boss.SendMessage("Hurt", "Atk1");
+        
+        sword[EnemySpawnManager.curSwordNum].SendMessage("Hurt", "Atk1");
+        
+
+        
     }
 
     private void Atk2()
@@ -60,9 +75,12 @@ public class newPlayer : MonoBehaviour
     private void activateAtk2()
     {
         anim.SetBool("Atk2", true);
-        
+        useSubHp();
         boss.SendMessage("Hurt", "Atk2");
-        
+        sword[EnemySpawnManager.curSwordNum].SendMessage("Hurt", "Atk2");
+
+
+
     }
 
     private void Hurt( string type)
@@ -73,17 +91,21 @@ public class newPlayer : MonoBehaviour
             isAtk = false;
             if (type == "nAtk")
             {
-                Damage(1);
+                Damage(2);
 
                 
             }
             else if (type == "sAtk")
             {
-                Damage(2);
+                Damage(1);
             }
             else if (type == "Throwing")
             {
 
+            }
+            else if (type == "swordAtk")
+            {
+                Damage(1);
             }
         }
         
@@ -106,7 +128,8 @@ public class newPlayer : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("parry");
+                    //Debug.Log("parry");
+                    shield();
                     anim.SetBool("succeed", true);
                 }
             }
@@ -117,8 +140,22 @@ public class newPlayer : MonoBehaviour
                 //anim.SetBool("hurt", true);
                 hp -= dam;
                 Debug.Log("player: "+hp);
+                subHp = 0;
             }
         }
+        for (int i = 0; i < hp; i++)
+        {
+            hps[i].SetActive(true);
+        }
+        for (int i = hp; i < 3 + Settings.health; i++)
+        {
+            hps[i].SetActive(false);
+        }
+        if (hp <= 0)
+        {
+            Die();
+        }
+
     }
 
     private void stoneHit()
@@ -158,12 +195,16 @@ public class newPlayer : MonoBehaviour
 
     private void shield()
     {
-        
+        subHp++;
     }
 
     private void Die()
     {
         //anim.Play("died");
+        Time.timeScale = 0;
+        print("died");
+        //SceneManager.LoadScene("MainScene");
+        popup.SetActive(true);
     }
 
     private void guard()
@@ -185,9 +226,18 @@ public class newPlayer : MonoBehaviour
     {
         canParry = false;
     }
+
+    private void useSubHp()
+    {
+        Debug.Log("use subhp");
+        if (subHp > 0)
+        {
+            hp+=subHp; subHp=0;
+        }
+    }
     private void Awake()
     {
-        hp = 3; subHp = 0;
+        hp = 3 + Settings.health; ; subHp = 0;
         atkSpeed = 1;
         atk1Len = 0.5f; atk3Len = 0.5f;
         anim = GetComponent<Animator>();
@@ -195,12 +245,43 @@ public class newPlayer : MonoBehaviour
         canBehave =
 
         canBehavetxt = GameObject.Find("playerBehave");
+        //sword = GameObject.Find("CaoCao(Sword)");
 
         isGuard = false;canParry = false;
 
         StatusEffectTimer = 0;
-        isAtk = false;  
+        isAtk = false;
 
+
+        hps[0] = GameObject.Find("HPBar (1)");
+        hps[1] = GameObject.Find("HPBar (2)");
+        hps[2] = GameObject.Find("HPBar (3)");
+        hps[3] = GameObject.Find("HPBar (4)");
+        hps[4] = GameObject.Find("HPBar (5)");
+        hps[5] = GameObject.Find("HPBar (6)");
+        hps[6] = GameObject.Find("HPBar (7)");
+        hps[7] = GameObject.Find("HPBar (8)");
+        hps[8] = GameObject.Find("HPBar (9)");
+
+
+
+        subHp = 0;
+        subHps[0] = GameObject.Find("SubHPBar (1)");
+        subHps[1] = GameObject.Find("SubHPBar (2)");
+        subHps[2] = GameObject.Find("SubHPBar (3)");
+        subHps[3] = GameObject.Find("SubHPBar (4)");
+        subHps[4] = GameObject.Find("SubHPBar (5)");
+        subHps[5] = GameObject.Find("SubHPBar (6)");
+        subHps[6] = GameObject.Find("SubHPBar (7)");
+        subHps[7] = GameObject.Find("SubHPBar (8)");
+        subHps[8] = GameObject.Find("SubHPBar (9)");
+
+        black[0] = GameObject.Find("base (9)");
+        black[1] = GameObject.Find("base (8)");
+        black[2] = GameObject.Find("base (7)");
+        black[3] = GameObject.Find("base (6)");
+        black[4] = GameObject.Find("base (5)");
+        black[5] = GameObject.Find("base (4)");
     }
     private void Start()
     {
@@ -209,6 +290,25 @@ public class newPlayer : MonoBehaviour
         stone.SetActive(false);
         bossThrowingStone.isThrown = false;
         aud = gameObject.GetComponent<AudioSource>();
+
+        for (int i = 8; i >= hp; i--)
+        {
+            hps[i].SetActive(false);
+        }
+        subHps[0].SetActive(false);
+        subHps[1].SetActive(false);
+        subHps[2].SetActive(false);
+        subHps[3].SetActive(false);
+        subHps[4].SetActive(false);
+        subHps[5].SetActive(false);
+        subHps[6].SetActive(false);
+        subHps[7].SetActive(false);
+        subHps[8].SetActive(false);
+
+        for (int i = 0; i < Settings.health; i++)
+        {
+            black[i].SetActive(false);
+        }
     }
 
 
@@ -216,6 +316,16 @@ public class newPlayer : MonoBehaviour
 
     private void Update()
     {
+        subHps[0].SetActive(false);
+        subHps[1].SetActive(false);
+        subHps[2].SetActive(false);
+        subHps[3].SetActive(false);
+
+        for (int i = 0; i < subHp; i++)
+        {
+            subHps[i].SetActive(true);
+        }
+
         if (!canBehave)        //상태이상 타이머 작동
         {
             Debug.Log(StatusEffectTimer);
