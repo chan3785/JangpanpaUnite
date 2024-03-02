@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Character_Management : MonoBehaviour
 {
-    public GameObject yes; // ê¸°ë³¸ì ìœ¼ë¡œ Popup_Managementì˜ yesì™€ ê°™ì€ ìš©ë„
+    public GameObject yes; // ±âº»ÀûÀ¸·Î Popup_ManagementÀÇ yes¿Í °°Àº ¿ëµµ
     public GameObject cur_charcter;
     public GameObject zhangFei;
     public GameObject caoRen;
@@ -17,7 +17,7 @@ public class Character_Management : MonoBehaviour
         sound = GetComponent<AudioSource>();
     }
 
-    public void characters() 
+    public void characters()
     {
         zhangFei.gameObject.SetActive(false);
         caoRen.gameObject.SetActive(false);
@@ -73,30 +73,30 @@ public class Character_Management : MonoBehaviour
     public void playSound()
     {
         sound.Play();
-        Debug.Log("íš¨ê³¼ìŒ");
+        Debug.Log("È¿°úÀ½");
     }
 
-   void Update()
-   {
+    void Update()
+    {
         if (Settings.zhangFei)
         {
             zhangFei.gameObject.SetActive(true);
-            Debug.Log("ì¥ë¹„");
+            Debug.Log("Àåºñ");
         }
         if (Settings.caoRen)
         {
             caoRen.gameObject.SetActive(true);
-            Debug.Log("ì¡°ì¸");
+            Debug.Log("Á¶ÀÎ");
         }
         if (Settings.caoHong)
         {
             caoHong.gameObject.SetActive(true);
-            Debug.Log("ì¡°í™");
+            Debug.Log("Á¶È«");
         }
         if (Settings.zhangLiao)
         {
             zhangLiao.gameObject.SetActive(true);
-            Debug.Log("ì¥ë£Œ");
+            Debug.Log("Àå·á");
         }
-   }
+    }
 }

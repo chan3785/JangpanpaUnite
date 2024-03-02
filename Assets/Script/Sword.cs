@@ -6,7 +6,7 @@ public class Sword : Enemy
 {
 
 
-
+    
 
     public static bool Parrying;
     private bool isAtk;
@@ -15,7 +15,7 @@ public class Sword : Enemy
     public GameObject[] hps = new GameObject[5];
 
     private bool can_Hurt;
-
+    
     Animator ani;
 
 
@@ -34,7 +34,7 @@ public class Sword : Enemy
         isAtk = true;
 
         ani.SetBool("Atk", true);
-        
+
 
 
     }
@@ -118,5 +118,5 @@ public class Sword : Enemy
     }
 
 
-
+    
 }

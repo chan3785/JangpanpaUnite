@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Player_atk
   - Enemy_atk
+  - enemyStone
+  - playerStone
   layers:
   - Default
   - TransparentFX
@@ -43,12 +45,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
+  - name: front
     uniqueID: 3642880743
     locked: 0
-  - name: Sprite
-    uniqueID: 1432082887
-    locked: 0
-  - name: UI
-    uniqueID: 817328127
+  - name: sprite
+    uniqueID: 1486927021
     locked: 0
