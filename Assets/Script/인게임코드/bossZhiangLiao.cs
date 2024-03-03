@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class bossCaoRen: MonoBehaviour
+
+ 
+
+
+public class bossZhiangLiao: MonoBehaviour
 {
-
-    public Slider hpSlider;
-    public Text hpText;
-    private float hp, CaoRenHP;
+    private int hp;
     public float atkSpeed;
 
     public AudioClip[] audios = new AudioClip[9];
@@ -21,7 +21,6 @@ public class bossCaoRen: MonoBehaviour
 
     public GameObject player;
     private GameObject boss;
-    public GameObject bossHp;
 
     public int walkSpeed;
     private bool walkBack;
@@ -42,8 +41,6 @@ public class bossCaoRen: MonoBehaviour
 
     public int parryProbability;
 
-    public GameObject Stone;
-    private bool canThrow, canParryStone;
 
 
     private AudioSource aud;
@@ -177,8 +174,7 @@ public class bossCaoRen: MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("died");
-        Goods.CaoRenDrop();
+
     }
 
 
@@ -214,45 +210,11 @@ public class bossCaoRen: MonoBehaviour
                     }
                 }
 
-                if(canThrow)
-                {
-                    delay += Time.deltaTime;
-                    if (delay > 1f)
-                    {
-                        Stone.SetActive(true);
-                        Stone.SendMessage("bossThrow");
-                        bossThrowingStone.isThrown = true;
-                        canThrow = false;
-                    }
-                }
-                if (bossThrowingStone.isThrown && !bossThrowingStone.bossStone)
-                {
-                    if (Stone.transform.position.x > 0.5)
-                    {
-                        if (canParryStone)
-                        {
-                            ani_init();
-                            anim.Play("parry");
-                            canParryStone = false;
-                            Stone.SendMessage("bossThrow");
-                        }
-                        else
-                        {
-                            ani_init();
-                            anim.Play("hurt");
-
-                            hp -= 2;
-                            Debug.Log("Boss: " + hp);
-                            Stone.SetActive(false);
-                            bossThrowingStone.isThrown = false;
-                        }
-                    }
-                }
                 
             }
             else
             {
-                if (transform.position.x > -5)
+                if (transform.position.x > -6.5)
                 {
                     transform.Translate(new Vector3(-walkSpeed * Time.deltaTime, 0, 0));
                     anim.SetBool("walk", true);
@@ -295,8 +257,7 @@ public class bossCaoRen: MonoBehaviour
 
     private void Awake()  // 변수 초기화
     {
-        CaoRenHP = 20;
-        hp = CaoRenHP; 
+        hp = 20; 
         atkSpeed = 1;
         
         anim = GetComponent<Animator>();
@@ -313,7 +274,7 @@ public class bossCaoRen: MonoBehaviour
 
 
         player = GameObject.Find("ZhangFei (1)");
-        boss = GameObject.Find("조인 (1)");
+        boss = GameObject.Find("장료");
 
     }
     private void Start()
@@ -325,9 +286,7 @@ public class bossCaoRen: MonoBehaviour
 
     private void Update()
     {
-        hpSlider.value = hp / CaoRenHP;
-        hpText.text = hp + " / " + CaoRenHP;
-        //Debug.Log(hp / CaoRenHP);
+        
         //Debug.Log(walkBack);Debug.Log(patTimer);
         if (!canAtk)
         {
@@ -382,8 +341,7 @@ public class bossCaoRen: MonoBehaviour
                 pat1 = true;
                 canAtk = false;
                 walkBack = true;
-                canThrow = true;
-                canParryStone = true;
+              
 
             }
 
@@ -395,8 +353,7 @@ public class bossCaoRen: MonoBehaviour
                 pat2 = true;
                 canAtk = false;
                 walkBack = true;
-                canThrow = true;
-                canParryStone = true;
+               
 
             }
         }
@@ -407,10 +364,7 @@ public class bossCaoRen: MonoBehaviour
 
         }
 
-        if (hp <= 0)
-        {
-            dead();
-        }
+
     }
 
 
@@ -435,14 +389,12 @@ public class bossCaoRen: MonoBehaviour
 
     private void dead()
     {
-        aniInit();
         anim.Play("die");
     }
 
     public void anidead()
     {
         boss.SetActive(false);
-        bossHp.SetActive(false);
     }
     private void decrease_atk1Num()
     {
@@ -454,12 +406,6 @@ public class bossCaoRen: MonoBehaviour
         atk2Num--;
         Debug.Log(atk2Num);
 
-    }
-
-    private void aniInit()
-    {
-        anim.SetInteger("atk1", 0); anim.SetInteger("atk2", 0);
-        anim.SetBool("parry", false); anim.SetBool("shield", false); anim.SetBool("hurt", false); anim.SetBool("throw", false);
     }
 
     private void aniParryInit()
@@ -477,10 +423,7 @@ public class bossCaoRen: MonoBehaviour
     }
 
 
-    private void aniThrowInit()
-    {
-        anim.SetBool("throw", false);
-    }
+   
 
     private void aniWalkBackInit()
     {
@@ -533,14 +476,6 @@ public class bossCaoRen: MonoBehaviour
         }
     }
 
-    private void audioThrowStone()
-    {
-        aud.clip = audios[5];
-        if (!aud.isPlaying)
-        {
-            aud.Play();
-        }
-    }
 
 
 }
