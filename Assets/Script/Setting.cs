@@ -6,10 +6,11 @@ using System.IO;
 
 public class Setting : MonoBehaviour
 {
-    public static bool isBGM, isSound, isStory, isVib, isTutorial, button_sound, button_vib = true;
+    public static bool isBGM, isSound, isVib, isTutorial, button_sound, button_vib = true;
+    public static bool isStory = true;
     [SerializeField] Toggle bgmTog, soundTog, storyTog, vibTog, tutTog;
     [SerializeField] AudioSource bgm, sound;
-    
+
 
 
     // Start is called before the first frame update
