@@ -6563,7 +6563,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &746908328
 Transform:
   m_ObjectHideFlags: 0
@@ -8522,7 +8522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &968605114
 Transform:
   m_ObjectHideFlags: 0
@@ -8550,17 +8550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc00562db0c1fc41916c92ba79c2717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Swords:
-  - {fileID: 1749571374}
-  - {fileID: 2142632484}
-  - {fileID: 397788304}
-  - {fileID: 265541891}
-  - {fileID: 813421769}
-  - {fileID: 15021966}
-  - {fileID: 1283880893}
-  - {fileID: 1741183816}
-  - {fileID: 304009847}
-  - {fileID: 1060821646}
+  Swords: []
   CaoRen: {fileID: 1071056650}
 --- !u!1 &970325901
 GameObject:
@@ -10403,7 +10393,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1105494500
 Transform:
   m_ObjectHideFlags: 0
@@ -15423,6 +15413,7 @@ GameObject:
   - component: {fileID: 1580103051}
   - component: {fileID: 1580103052}
   - component: {fileID: 1580103053}
+  - component: {fileID: 1580103054}
   m_Layer: 0
   m_Name: arrow2
   m_TagString: Untagged
@@ -15517,6 +15508,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1580103054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580103050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e62bdd7d75327042a90ccb0414f1116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1586866804
 GameObject:
   m_ObjectHideFlags: 0
@@ -15777,7 +15780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1597743407
 RectTransform:
   m_ObjectHideFlags: 0
