@@ -6,7 +6,10 @@ using UnityEngine;
 
 public class EnemySpawnManager : MonoBehaviour
 {
+    private GameObject[] Enemies = new GameObject[10];
+
     public GameObject[] Swords = new GameObject[10];
+    public GameObject[] Spears = new GameObject[10];
     private bool[] swordState = new bool[10];
     public GameObject CaoRen;
 
@@ -15,8 +18,42 @@ public class EnemySpawnManager : MonoBehaviour
     private int swordNum;
     public static int curSwordNum;
 
+   
+    private int spearNum;
+    private int curEnemyNum;
+    private int EnemyNum;
+
+    private void die()
+    {
+
+        
+        Enemies[curEnemyNum++].SetActive(false);
+        position(curEnemyNum);
+        //curEnemyNum++;
+        if(curEnemyNum == 10)
+        {
+            CaoRen.SetActive(true);
+        }
+
+    }
+
+    private void Hurt(string type)
+    {
+        Enemies[curEnemyNum].SendMessage("Hurt", type);
+
+    }
+    private void position(int c)
+    {
+        for(int i= 0;i<EnemyNum-c ;i++)
+        {
+            Enemies[i+c].SendMessage("setPosition", -(10 - i * 2));
+        }
+    }
     private void swordDied()
     {
+
+        
+
         swordState[curSwordNum] = false;
         Swords[curSwordNum].SetActive(false);
         curSwordNum++;
@@ -34,6 +71,8 @@ public class EnemySpawnManager : MonoBehaviour
     }
     private void spawnSword()
     {
+
+        /*
         swordState[swordNum++] = true;
         for (int i = 0; i < 10; i++)
         {
@@ -41,8 +80,21 @@ public class EnemySpawnManager : MonoBehaviour
             Swords[i].SendMessage("setPosition", swordPosition[i]);
         }
         Debug.Log("SwordNum: " + swordNum);
+        */
+        Enemies[EnemyNum] = Swords[swordNum++];
+        Enemies[EnemyNum++].SetActive(true);
+        position(curEnemyNum);
     }
 
+
+    private void spawnSpear()
+    {
+        Enemies[EnemyNum] = Spears[spearNum++];
+        Enemies[EnemyNum++].SetActive(true);
+        position(curEnemyNum);
+
+
+    }
     private void setPosition()
     {
         
@@ -53,11 +105,13 @@ public class EnemySpawnManager : MonoBehaviour
     {
         curSwordNum = 0;
         swordNum = 0;
+        spearNum = 0;
+        curEnemyNum = 0; EnemyNum = 0;
     }
     // Start is called before the first frame update
     void Start()
     {
-        CaoRen = GameObject.Find("조인 (1)");
+        //CaoRen = GameObject.Find("조인 (1)");
         for (int i = 0; i < 10; i++)
         {
             Swords[i].SetActive(false);
@@ -79,10 +133,17 @@ public class EnemySpawnManager : MonoBehaviour
             spawnSword();
             
         }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+
+            spawnSpear();
+
+        }
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
 
-            swordDied();
+            //swordDied();
+            die();
         }
     }
 }

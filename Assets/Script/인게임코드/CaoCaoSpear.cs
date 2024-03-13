@@ -4,7 +4,7 @@ using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CaoCao : MonoBehaviour
+public class CaoCaoSpear : MonoBehaviour
 {
 
     private int hp;
@@ -20,12 +20,12 @@ public class CaoCao : MonoBehaviour
 
     private AudioSource aud;
 
-    public GameObject player,my;
+    public GameObject player, my;
 
     private bool canAtk;
     public float walkSpeed;
 
-    private float atkTime,shieldTimer,position;
+    private float atkTime, shieldTimer, position;
     public GameObject enemySpawn;
 
     private void setPosition(float pos)
@@ -35,7 +35,7 @@ public class CaoCao : MonoBehaviour
     private void Atk()
     {
         anim.SetBool("Atk", true);
-        
+
     }
     private void actAtk()
     {
@@ -50,7 +50,7 @@ public class CaoCao : MonoBehaviour
     {
         if (canHurt)
         {
-            if (shieldTimer <= 1)
+            if (shieldTimer <= 2)
             {
                 if (type == "Atk1")
                 {
@@ -72,9 +72,9 @@ public class CaoCao : MonoBehaviour
     public void Damage(int dam)
     {
         aniInit();
-        anim.Play("CaoCao_Hurt");
+        anim.Play("CaoCao(spear)_Hurt");
         hp -= dam;
-        Debug.Log("Sword: " +  hp);
+        Debug.Log("Sword: " + hp);
         for (int i = hp; i < 5; i++)
         {
             hps[i].SetActive(false);
@@ -87,20 +87,16 @@ public class CaoCao : MonoBehaviour
     public void shield()
     {
         aniInit();
-        anim.Play("CaoCao_shield");
-        Debug.Log("Sword shield");
-    } 
+        anim.Play("shield");
+        Debug.Log("Spear shield");
+    }
 
     private void Die()
     {
-        
 
-<<<<<<< Updated upstream
-        enemySpawn.SendMessage("swordDied");
-=======
+
         enemySpawn.SendMessage("die");
         Goods.ArmyDrop();
->>>>>>> Stashed changes
     }
     public void walk()
     {
@@ -118,8 +114,12 @@ public class CaoCao : MonoBehaviour
             anim.SetBool("Walk", false);
             if (transform.position.x <= -10)
             {
-                
+
                 canHurt = true;
+                canAtk = true;
+            }
+            else if (transform.position.x <= -8)
+            {
                 canAtk = true;
             }
         }
@@ -138,15 +138,15 @@ public class CaoCao : MonoBehaviour
         anim = GetComponent<Animator>();
         aud = gameObject.GetComponent<AudioSource>();
         canHurt = false;
-        
+
 
         //canAtk = false;
-   
+
         canAtk = false;
         player = GameObject.Find("ZhangFei (1)");
-        my = GameObject.Find("CaoCao(Sword)");
+        //my = GameObject.Find("CaoCao(Sword)");
         atkTime = 0;
-        for(int i = 0;i<5;i++)
+        for (int i = 0; i < 5; i++)
         {
             hps[i].SetActive(true);
         }
@@ -167,9 +167,9 @@ public class CaoCao : MonoBehaviour
         }
         else
         {
-            if(atkTime <= 0)
+            if (atkTime <= 0)
             {
-                Atk(); 
+                Atk();
             }
             else
             {

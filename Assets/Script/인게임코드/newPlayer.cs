@@ -29,7 +29,9 @@ public class newPlayer : MonoBehaviour
     public GameObject boss;
 
     public GameObject[] sword = new GameObject[10];
+    public GameObject[] spear = new GameObject[10];
     public GameObject canBehavetxt;
+    public GameObject EnemyManager;
 
     private bool isGuard,canParry;
     private float StatusEffectTimer;
@@ -61,10 +63,11 @@ public class newPlayer : MonoBehaviour
         useSubHp();
         boss.SendMessage("Hurt", "Atk1");
         
-        sword[EnemySpawnManager.curSwordNum].SendMessage("Hurt", "Atk1");
-        
+        //sword[EnemySpawnManager.curSwordNum].SendMessage("Hurt", "Atk1");
+        EnemyManager.SendMessage("Hurt", "Atk1");
 
-        
+
+
     }
 
     private void Atk2()
@@ -77,8 +80,8 @@ public class newPlayer : MonoBehaviour
         anim.SetBool("Atk2", true);
         useSubHp();
         boss.SendMessage("Hurt", "Atk2");
-        sword[EnemySpawnManager.curSwordNum].SendMessage("Hurt", "Atk2");
-
+        //sword[EnemySpawnManager.curSwordNum].SendMessage("Hurt", "Atk2");
+        EnemyManager.SendMessage("Hurt", "Atk2");
 
 
     }
@@ -245,6 +248,7 @@ public class newPlayer : MonoBehaviour
         canBehave =
 
         canBehavetxt = GameObject.Find("playerBehave");
+        EnemyManager = GameObject.Find("SpawnManager");
         //sword = GameObject.Find("CaoCao(Sword)");
 
         isGuard = false;canParry = false;
