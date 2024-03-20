@@ -178,6 +178,7 @@ public class bossCaoRen: MonoBehaviour
     private void Die()
     {
         Debug.Log("died");
+        Goods.CaoRenDrop();
     }
 
 

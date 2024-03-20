@@ -9,6 +9,7 @@ public class Ingame_Shield_Button : MonoBehaviour
 {
     private GameObject player;
     private GameObject play;
+    private GameObject CaoHong;
 
     private bool is_Click;
     private float time;
@@ -19,7 +20,7 @@ public class Ingame_Shield_Button : MonoBehaviour
     {
         player = GameObject.Find("ZhangFei");
         play = GameObject.Find("ZhangFei (1)");
-
+        CaoHong = GameObject.Find("조홍");
 
     }
 
@@ -64,6 +65,7 @@ public class Ingame_Shield_Button : MonoBehaviour
             is_Click = true;
             //player.SendMessage("Guard");
             play.SendMessage("guard");
+            CaoHong.SendMessage("guardOn");
         }
     }
 
@@ -74,6 +76,7 @@ public class Ingame_Shield_Button : MonoBehaviour
             is_Click = false;
             //player.SendMessage("Guard_off");
             play.SendMessage("guardOff");
+            CaoHong.SendMessage("guardOff");
         }
     }
 }

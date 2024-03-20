@@ -88,7 +88,7 @@ public class newPlayer : MonoBehaviour
 
     private void Hurt( string type)
     {
-        Debug.Log(type);
+       // Debug.Log(type);
         if (canHurt)
         {
             isAtk = false;
@@ -125,7 +125,7 @@ public class newPlayer : MonoBehaviour
             {
                 if (canParry)
                 {
-                    Debug.Log("parry");
+                   // Debug.Log("parry");
                     anim.SetBool("succeed",true);
 
                 }
@@ -142,7 +142,7 @@ public class newPlayer : MonoBehaviour
                 anim.Play("Hurt");
                 //anim.SetBool("hurt", true);
                 hp -= dam;
-                Debug.Log("player: "+hp);
+                //Debug.Log("player: "+hp);
                 subHp = 0;
             }
         }
@@ -232,7 +232,7 @@ public class newPlayer : MonoBehaviour
 
     private void useSubHp()
     {
-        Debug.Log("use subhp");
+        //Debug.Log("use subhp");
         if (subHp > 0)
         {
             hp+=subHp; subHp=0;
@@ -330,9 +330,8 @@ public class newPlayer : MonoBehaviour
             subHps[i].SetActive(true);
         }
 
-        if (!canBehave)        //»óÅÂÀÌ»ó Å¸ÀÌ¸Ó ÀÛµ¿
+        if (!canBehave)        //ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ Å¸ï¿½Ì¸ï¿½ ï¿½Ûµï¿½
         {
-            Debug.Log(StatusEffectTimer);
             StatusEffectTimer += Time.deltaTime;
             if (StatusEffectTimer >= 3)
             {

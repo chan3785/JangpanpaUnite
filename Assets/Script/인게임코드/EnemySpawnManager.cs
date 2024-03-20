@@ -12,6 +12,8 @@ public class EnemySpawnManager : MonoBehaviour
     public GameObject[] Spears = new GameObject[10];
     private bool[] swordState = new bool[10];
     public GameObject CaoRen;
+    public GameObject CaoHong;
+    public GameObject XiahouDun;
 
     private float[] swordPosition = new float[10];
     //private float swordPosition;

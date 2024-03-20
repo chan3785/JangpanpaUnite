@@ -50,7 +50,7 @@ public class CaoCao : MonoBehaviour
     {
         if (canHurt)
         {
-            if (shieldTimer <= 1)
+            if (shieldTimer <= 2)
             {
                 if (type == "Atk1")
                 {
@@ -95,12 +95,8 @@ public class CaoCao : MonoBehaviour
     {
         
 
-<<<<<<< Updated upstream
-        enemySpawn.SendMessage("swordDied");
-=======
         enemySpawn.SendMessage("die");
         Goods.ArmyDrop();
->>>>>>> Stashed changes
     }
     public void walk()
     {
