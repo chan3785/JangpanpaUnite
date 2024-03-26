@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: atk2
+  m_Name: atkSpin
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,17 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 5bdb7cde27436b34e8ecd77828599ed3, type: 3}
+      value: {fileID: 21300000, guid: 12a3297dc8a8dd04583154d4cabda0e7, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: deb73dca5033a734b8fcd8226c906dce, type: 3}
+      value: {fileID: 21300000, guid: 35ad8a6acf4733941b272a24aa78dd4b, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: a6b9041b6a17bea47b779478f7a44cc5, type: 3}
     - time: 0.25
-      value: {fileID: 21300000, guid: 6e9d2ca34b05c6543b974007c8f24829, type: 3}
+      value: {fileID: 21300000, guid: 948c6be2179b6774ca2a1345cbd89407, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: 7fe521a504c08b742a204386b444f02c, type: 3}
     - time: 0.41666666
-      value: {fileID: 21300000, guid: 84ae3602b5829664098cd0ab7563745c, type: 3}
+      value: {fileID: 21300000, guid: 950fd3e2c9362024fba9539d1c1d9cc3, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,10 +50,12 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 5bdb7cde27436b34e8ecd77828599ed3, type: 3}
-    - {fileID: 21300000, guid: deb73dca5033a734b8fcd8226c906dce, type: 3}
-    - {fileID: 21300000, guid: 6e9d2ca34b05c6543b974007c8f24829, type: 3}
-    - {fileID: 21300000, guid: 84ae3602b5829664098cd0ab7563745c, type: 3}
+    - {fileID: 21300000, guid: 12a3297dc8a8dd04583154d4cabda0e7, type: 3}
+    - {fileID: 21300000, guid: 35ad8a6acf4733941b272a24aa78dd4b, type: 3}
+    - {fileID: 21300000, guid: a6b9041b6a17bea47b779478f7a44cc5, type: 3}
+    - {fileID: 21300000, guid: 948c6be2179b6774ca2a1345cbd89407, type: 3}
+    - {fileID: 21300000, guid: 7fe521a504c08b742a204386b444f02c, type: 3}
+    - {fileID: 21300000, guid: 950fd3e2c9362024fba9539d1c1d9cc3, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -76,21 +82,28 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.083333336
-    functionName: actAtk2
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.16666667
-    functionName: audioAtk2_1
+    functionName: audioAtk1
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.25
-    functionName: decrease_atk1Num
+    functionName: actAtk1
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.33333334
+    functionName: decrease_spinn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.41666666
+    functionName: hurtAble
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

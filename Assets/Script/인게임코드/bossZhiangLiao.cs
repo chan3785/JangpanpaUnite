@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 
  
@@ -9,8 +10,12 @@ using UnityEngine;
 
 public class bossZhiangLiao: MonoBehaviour
 {
-    private int hp;
+
+    public Slider hpSlider;
+    public Text hpText;
+    private float hp, ZhiangLiaoHP;
     public float atkSpeed;
+
 
     public AudioClip[] audios = new AudioClip[9];
 
@@ -20,20 +25,23 @@ public class bossZhiangLiao: MonoBehaviour
     private bool canHurt;
 
     public GameObject player;
+    public GameObject color;
+
     private GameObject boss;
+    public GameObject bossHp;
 
     public int walkSpeed;
     private bool walkBack;
     private bool canAtk;
 
-    private int atk1Num, atk2Num;
+    private int atk1Num, atk2Num, atk3Num, spin;
 
     
     private float timer;
     private int randValue;
 
 
-    private bool pat1, pat2, turn;
+    private bool pat1, pat2,pat3, turn;
 
     private float patTimer;
     public float atkTimer;
@@ -46,21 +54,7 @@ public class bossZhiangLiao: MonoBehaviour
     private AudioSource aud;
 
     private float hurtTimer;
-    /*
-    private void Atk1()
-    {
-        
-        player.SendMessage("Hurt", "nAtk");
 
-    }
-
-    private void Atk2()
-    {
-
-        player.SendMessage("Hurt", "nAtk");
-
-    }
-    */
 
     private void activateTimer()
     {
@@ -82,28 +76,48 @@ public class bossZhiangLiao: MonoBehaviour
     private void Atk1()
     {
 
-        
         anim.SetInteger("atk1", atk1Num);
     }
 
     private void actAtk1()
     {
-        player.SendMessage("Hurt", "nAtk");
+        player.SendMessage("Hurt", "zAtk");
         atkTimer = 0;
     }
+
+
     private void Atk2()
     {
-
-        
         anim.SetInteger("atk2", atk2Num);
     }
 
     private void actAtk2()
     {
-        player.SendMessage("Hurt", "sAtk");
+        player.SendMessage("Hurt", "zAtk");
         atkTimer = 0;
     }
+
+    private void Atk3()
+    {
+        anim.SetInteger("atk3", atk3Num);
+    }
     
+    private void actAtk3()
+    {
+        player.SendMessage("Hurt", "zAkk");
+        atkTimer = 0;
+    }
+
+    private void Spin()
+    {
+        anim.SetInteger("spin", spin);
+    }
+
+    private void actSpin()
+    {
+        player.SendMessage("Hurt", "nAtk");
+        atkTimer = 0;
+    }
     private void Hurt(string type)
     {
        
@@ -135,7 +149,6 @@ public class bossZhiangLiao: MonoBehaviour
             {
                 ani_init();
                 anim.Play("hurt");
-
                 hp -= dam;
                 Debug.Log("Boss: " + hp);
             }
@@ -174,7 +187,6 @@ public class bossZhiangLiao: MonoBehaviour
 
     private void Die()
     {
-
     }
 
 
@@ -195,22 +207,6 @@ public class bossZhiangLiao: MonoBehaviour
                     }
 
                 }
-                else if (pat2)
-                {
-                    if (patTimer >= 5)
-                    {
-                        if (Random.Range(1, 3) == 1)
-                        {
-                            patTimer = 0;
-                        }
-                        else
-                        {
-                            patTimer = -1;
-                        }
-                    }
-                }
-
-                
             }
             else
             {
@@ -257,7 +253,8 @@ public class bossZhiangLiao: MonoBehaviour
 
     private void Awake()  // 변수 초기화
     {
-        hp = 20; 
+        ZhiangLiaoHP = 30;
+        hp = ZhiangLiaoHP;
         atkSpeed = 1;
         
         anim = GetComponent<Animator>();
@@ -266,27 +263,28 @@ public class bossZhiangLiao: MonoBehaviour
         walkBack = false;
           
         canAtk = false;
-        atk1Num = 0;atk2Num = 0;
+        atk1Num = 0;atk2Num = 0; atk3Num = 0;
         pat1 = false; pat2 = false; turn = false;
         patTimer = -1;
         parryProbability = 30;
         atkTimer = 0;
 
-
         player = GameObject.Find("ZhangFei (1)");
         boss = GameObject.Find("장료");
+        //color.SetActive(false);
 
     }
     private void Start()
     {
         anim.speed = atkSpeed;
-        
     }
 
 
     private void Update()
     {
-        
+        anim.speed = atkSpeed;
+        hpSlider.value = hp / ZhiangLiaoHP;
+        hpText.text = hp + " / " + ZhiangLiaoHP;
         //Debug.Log(walkBack);Debug.Log(patTimer);
         if (!canAtk)
         {
@@ -296,36 +294,29 @@ public class bossZhiangLiao: MonoBehaviour
         {
             Atk1();
             Atk2();
-
-            if (atk1Num <= 0 && atk2Num <= 0)
+            Atk3();
+            Spin();
+            if (atk1Num <= 0 && atk2Num <= 0&& atk3Num <= 0)
             {
                 activateTimer();
                 activateAtkTimer();
 
-                if (timer >= 1)
+                if (timer >= 3)
                 {
                     timer = 0;
-                    if (Random.Range(0, 2) == 1)
+                    if (Random.Range(0, 3) == 1&&spin == 0)
                     {
-                        randValue = Random.Range(1, 11);
-
-                        if (randValue >= 9)
-                        {
-                            atk2Num = 3;
-                        }
-                        else if (randValue >= 6)
-                        {
-                            atk2Num = 2;
-                        }
-                        else
-                        {
-                            atk2Num = 1;
-                        }
-
-                        atk1Num = Random.Range(0, 2);
-
+                        atk1Num = 3;
                     }
-
+                    else if(Random.Range(0,2)==1&&spin==0)
+                    {
+                        atk3Num = 1;
+                    }
+                    else
+                    {
+                        Debug.Log("spin");
+                        spin = 2;
+                    }
                 }
             }
 
@@ -334,29 +325,18 @@ public class bossZhiangLiao: MonoBehaviour
 
 
 
-        if(!pat1 && !pat2 && (atk1Num <= 0 && atk2Num <= 0))
+        if(!pat1 && !pat2 && (atk1Num <= 0 && atk2Num <= 0 && atk3Num <= 0))
         {
-            if (hp <= 10)
+            
+            if (hp <= 15)
             {
                 pat1 = true;
-                canAtk = false;
-                walkBack = true;
-              
-
+                color.SetActive(true);
+                hp = 30;
             }
 
         }
-        else if (!pat2 && (atk1Num <= 0 && atk2Num <= 0))
-        {
-            if (hp <= 6)
-            {
-                pat2 = true;
-                canAtk = false;
-                walkBack = true;
-               
-
-            }
-        }
+       
         if (Input.GetKeyDown(KeyCode.Space))
         {
             hp -= 1;
@@ -364,7 +344,10 @@ public class bossZhiangLiao: MonoBehaviour
 
         }
 
-
+        if(hp <= 0)
+        {
+            dead();
+        }
     }
 
 
@@ -390,6 +373,7 @@ public class bossZhiangLiao: MonoBehaviour
     private void dead()
     {
         anim.Play("die");
+
     }
 
     public void anidead()
@@ -405,9 +389,23 @@ public class bossZhiangLiao: MonoBehaviour
     {
         atk2Num--;
         Debug.Log(atk2Num);
-
     }
-
+    private void decrease_atk3Num()
+    {
+        atk3Num--;
+        Debug.Log(atk2Num);
+    }
+    private void decrease_spinn()
+    {
+        spin--;
+        Debug.Log(atk2Num);
+    }
+    private void aniInit()
+    {
+        anim.SetInteger("atk1", 0); anim.SetInteger("atk2", 0);
+        anim.SetInteger("atk3", 0);
+        anim.SetBool("parry", false); anim.SetBool("shield", false); anim.SetBool("hurt", false); 
+    }
     private void aniParryInit()
     {
         anim.SetBool("parry", false);

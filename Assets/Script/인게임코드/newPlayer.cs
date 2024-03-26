@@ -27,6 +27,7 @@ public class newPlayer : MonoBehaviour
     private bool canHurt;
 
     public GameObject boss;
+    public GameObject bossZhiangLiao;
 
     public GameObject[] sword = new GameObject[10];
     public GameObject[] spear = new GameObject[10];
@@ -62,7 +63,7 @@ public class newPlayer : MonoBehaviour
     {
         useSubHp();
         boss.SendMessage("Hurt", "Atk1");
-        
+        bossZhiangLiao.SendMessage("Hurt", "Atk1");
         //sword[EnemySpawnManager.curSwordNum].SendMessage("Hurt", "Atk1");
         EnemyManager.SendMessage("Hurt", "Atk1");
 
@@ -81,6 +82,7 @@ public class newPlayer : MonoBehaviour
         useSubHp();
         boss.SendMessage("Hurt", "Atk2");
         //sword[EnemySpawnManager.curSwordNum].SendMessage("Hurt", "Atk2");
+        bossZhiangLiao.SendMessage("Hurt", "Atk2");
         EnemyManager.SendMessage("Hurt", "Atk2");
 
 
@@ -107,6 +109,10 @@ public class newPlayer : MonoBehaviour
 
             }
             else if (type == "swordAtk")
+            {
+                Damage(1);
+            }
+            else if (type == "zAtk")
             {
                 Damage(1);
             }
