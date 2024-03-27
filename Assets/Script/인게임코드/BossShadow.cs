@@ -8,6 +8,8 @@ public class BossShadow : MonoBehaviour
 {
     public GameObject boss;
     private Animator anim;
+    public GameObject player;
+    public static bool isJump;
     private bool atk;
     public void spawn()
     {
@@ -16,12 +18,19 @@ public class BossShadow : MonoBehaviour
 
     }
 
+    public void Parried()
+    {
+        delete();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("ZhangFei (1)");
         boss = GameObject.Find("ÇÏÈÄµ·");
         anim = GetComponent<Animator>();
         atk = false;
+        isJump = true;
     }
 
     // Update is called once per frame
@@ -39,8 +48,14 @@ public class BossShadow : MonoBehaviour
         */
     }
 
+    private void actAtk()
+    {
+        player.SendMessage("Hurt", "shadowAtk");
+    }
+
     private void changeAtk()
     {
+        isJump = false;
         atk = !atk;
         anim.SetBool("atk", atk);
     }

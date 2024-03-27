@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EnemySpawnManager : MonoBehaviour
 {
@@ -41,7 +42,13 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Hurt(string type)
     {
+        if (XiahouDun.activeSelf)
+        {
+            XiahouDun.SendMessage("Hurt", type);
+        }
         Enemies[curEnemyNum].SendMessage("Hurt", type);
+
+        
 
     }
     private void position(int c)
@@ -109,6 +116,8 @@ public class EnemySpawnManager : MonoBehaviour
         swordNum = 0;
         spearNum = 0;
         curEnemyNum = 0; EnemyNum = 0;
+
+        XiahouDun = GameObject.Find("ÇÏÈÄµ·");
     }
     // Start is called before the first frame update
     void Start()

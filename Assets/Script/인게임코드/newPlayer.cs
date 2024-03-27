@@ -46,7 +46,8 @@ public class newPlayer : MonoBehaviour
     public bool aud2;
     private bool isAtk;
 
-    public GameObject popup;
+    public GameObject popup,shadow;
+
     private void Atk1()
 
     {
@@ -69,7 +70,7 @@ public class newPlayer : MonoBehaviour
         bossCaoHong.SendMessage("Hurt", "Atk1");
 
         //sword[EnemySpawnManager.curSwordNum].SendMessage("Hurt", "Atk1");
-        EnemyManager.SendMessage("Hurt", "Atk1");
+        EnemyManager.SendMessage("Hurt", "Atk1"); 
 
 
 
@@ -118,9 +119,19 @@ public class newPlayer : MonoBehaviour
             {
                 Damage(1);
             }
+<<<<<<< Updated upstream
             else if (type == "zAtk")
             {
                 Damage(1);
+=======
+            else if(type == "XiaAtk")
+            {
+                Damage(BossXiahouDun.atkDamage);
+            }
+            else if (type == "shadowAtk")
+            {
+                Damage(BossXiahouDun.atkDamage/2);
+>>>>>>> Stashed changes
             }
         }
         
@@ -143,8 +154,12 @@ public class newPlayer : MonoBehaviour
             {
                 if (canParry)
                 {
-                   // Debug.Log("parry");
+                    Debug.Log("parry");
                     anim.SetBool("succeed",true);
+                    if(BossShadow.isJump)
+                    {
+                        shadow.SendMessage("Parried");
+                    }
 
                 }
                 else
@@ -221,11 +236,13 @@ public class newPlayer : MonoBehaviour
 
     private void Die()
     {
+        /*
         //anim.Play("died");
         Time.timeScale = 0;
         print("died");
         //SceneManager.LoadScene("MainScene");
         popup.SetActive(true);
+        */
     }
 
     private void guard()
@@ -273,7 +290,7 @@ public class newPlayer : MonoBehaviour
 
         StatusEffectTimer = 0;
         isAtk = false;
-
+        shadow = GameObject.Find("Shadow");
 
         hps[0] = GameObject.Find("HPBar (1)");
         hps[1] = GameObject.Find("HPBar (2)");
