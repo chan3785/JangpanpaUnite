@@ -28,6 +28,8 @@ public class newPlayer : MonoBehaviour
 
     public GameObject boss;
     public GameObject bossZhiangLiao;
+    public GameObject bossCaoHong;
+
 
     public GameObject[] sword = new GameObject[10];
     public GameObject[] spear = new GameObject[10];
@@ -64,6 +66,8 @@ public class newPlayer : MonoBehaviour
         useSubHp();
         boss.SendMessage("Hurt", "Atk1");
         bossZhiangLiao.SendMessage("Hurt", "Atk1");
+        bossCaoHong.SendMessage("Hurt", "Atk1");
+
         //sword[EnemySpawnManager.curSwordNum].SendMessage("Hurt", "Atk1");
         EnemyManager.SendMessage("Hurt", "Atk1");
 
@@ -83,6 +87,8 @@ public class newPlayer : MonoBehaviour
         boss.SendMessage("Hurt", "Atk2");
         //sword[EnemySpawnManager.curSwordNum].SendMessage("Hurt", "Atk2");
         bossZhiangLiao.SendMessage("Hurt", "Atk2");
+        bossCaoHong.SendMessage("Hurt", "Atk2");
+
         EnemyManager.SendMessage("Hurt", "Atk2");
 
 
@@ -121,7 +127,13 @@ public class newPlayer : MonoBehaviour
     }
 
     
+    public static bool playerisParry()
+    {
+        if(parry)
+            return true;
 
+        return false;
+    }
     private void Damage(int dam)
     {
         
@@ -326,6 +338,7 @@ public class newPlayer : MonoBehaviour
 
     private void Update()
     {
+        playerisParry();
         subHps[0].SetActive(false);
         subHps[1].SetActive(false);
         subHps[2].SetActive(false);

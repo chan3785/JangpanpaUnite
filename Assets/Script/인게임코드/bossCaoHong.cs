@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class bossCaoHong : MonoBehaviour
@@ -13,7 +14,6 @@ public class bossCaoHong : MonoBehaviour
     public Animator anim;
 
     private bool canHurt;
-
     public GameObject player;
     private GameObject boss;
     public GameObject arrow1; // 1번공격 화살
@@ -27,7 +27,7 @@ public class bossCaoHong : MonoBehaviour
 
     private int atk1Num, atk2Num, atk3Num;
 
-    
+    private int page;
     private float timer;
     private int randValue;
 
@@ -95,8 +95,10 @@ public class bossCaoHong : MonoBehaviour
             anim.SetBool("walk", false);
             canHurt = true;
             canAtk = true;
+            page = 3;
         }
     }
+  
 
     private void Hurt(string type)
     {
@@ -158,8 +160,7 @@ public class bossCaoHong : MonoBehaviour
     {
         anim.SetBool("parry", true);
         anim.Play("parry");
-        player.SendMessage("StatusEffect");
-
+        //player.SendMessage("StatusEffect");
     }
 
     private void dead()
@@ -231,11 +232,33 @@ public class bossCaoHong : MonoBehaviour
 
     public void atk1_prepare()
     {
+        if (transform.position.x < 7.5)
+        {
+            transform.Translate(new Vector3(walkSpeed * Time.deltaTime, 0, 0));
+            anim.SetBool("walk", true);
+        }
+        else
+        {
+            anim.SetBool("walk", false);
+            canHurt = true;
+            canAtk = true;
+        }
         transform.position = new Vector3(7.5f, 0.5f, 0);
     }
 
     public void atk2_prepare()
     {
+        if (transform.position.x < 0)
+        {
+            transform.Translate(new Vector3(walkSpeed * Time.deltaTime, 0, 0));
+            anim.SetBool("walk", true);
+        }
+        else
+        {
+            anim.SetBool("walk", false);
+            canHurt = true;
+            canAtk = true;
+        }
         transform.position = new Vector3(0, 0.5f, 0);
     }
 
@@ -269,6 +292,10 @@ public class bossCaoHong : MonoBehaviour
                     }
                     else // 만족하지 않을 경우 방어 애니메이션 실행
                     {
+                        player.SendMessage("Hurt", "nAtk");
+                        player.SendMessage("Shield");
+                        player.SendMessage("Shield");
+
                         Debug.Log("guard");
                         player.SendMessage("guard");
                         arrow_timer = 0;
@@ -293,13 +320,13 @@ public class bossCaoHong : MonoBehaviour
 
     private void atk1_parry()
     {
+        
         Debug.Log("패링 함수 작동중");
-        player.SendMessage("parryOn");
+        //player.SendMessage("parryOn");
         if(arrow1.transform.position.x < 6.5f) // 화살이 조홍의 위치까지 이동 
         {
             arrow1.GetComponent<SpriteRenderer>().flipX = false;
             arrow1.transform.Translate(new Vector3(arrow_speed * Time.deltaTime, 0, 0));
-            Hurt("Atk1");
         }
         else // 위치까지 도달 후 조홍의 hurt 함수 실행
         {
@@ -308,7 +335,11 @@ public class bossCaoHong : MonoBehaviour
             arrow1.SetActive(false);
             arrow1.GetComponent<SpriteRenderer>().flipX = true;
             anim.SetBool("can_attack", true);
+            anim.Play("hurt");
+            hp -= 1;
+            Debug.Log("Boss: " + hp);
             can_Parrying1 = false;
+            page = 2;
         }
     }
 
@@ -408,6 +439,17 @@ public class bossCaoHong : MonoBehaviour
             arrow1.GetComponent<SpriteRenderer>().flipX = true;
             anim.SetBool("can_attack", true);
             can_Parrying2 = false;
+            if (Random.Range(0, 100) <= 40)
+            {
+                atk2Num = 1;
+            }
+            else
+            {
+                atk2Num = 0;
+                anim.SetInteger("atk2", 0);
+
+                page = 6;
+            }
         }
     }
 
@@ -440,13 +482,24 @@ public class bossCaoHong : MonoBehaviour
         {
             Goods.money -= 1;
         }
+        if (Random.Range(0, 100) <= 50)
+        {
+            atk3Num = 1;
+        }
+        else
+        {
+            atk3Num = 0;
+            anim.SetInteger("atk3", 0);
+
+            page = 4;
+        }
     }
 
     private void Awake()  // ���� �ʱ�ȭ
     {
         hp = 20; 
         atkSpeed = 1;
-        
+        page = 1;
         anim = GetComponent<Animator>();
         //aud = gameObject.GetComponent<AudioSource>();
         canHurt = false;
@@ -483,9 +536,12 @@ public class bossCaoHong : MonoBehaviour
         // Debug.Log("atk1: " + atk1Num);
         // Debug.Log("atk2: " + atk2Num);
         // Debug.Log("atk3: " + atk3Num);
-        if (!canAtk)
+        if (page == 2)
         {
             walk();
+            anim.SetInteger("atk1", 0);
+            atk1Num= 0;
+            Debug.Log(page);
         }
         else
         {
@@ -514,15 +570,61 @@ public class bossCaoHong : MonoBehaviour
                     activateTimer();
                     activateAtkTimer();
 
-                    if (timer >= 1)
+                    if (timer >= 3)
                     {
                         timer = 0;
-                        //atk1Num = Random.Range(0, 2);
-                        atk2Num = Random.Range(0, 2);
+                        if(page == 1)
+                        {
+                            atk1Num = 1;
+                        }
+                        if(page == 3)
+                        {
+                            anim.SetInteger("atk1", 0);
+                            atk3Num = 1;
+                            
+                        }
+                        if(page ==5)
+                    {
+                        atk2Num= 1;
+                        
+                    }
+                        //atk2Num = Random.Range(0, 2);
                         //atk3Num = Random.Range(0, 2);
                     }
+                    
+
                 }   
-                Debug.Log("money: " + Goods.money);
+                        if(page == 4)
+                    {
+                        canHurt = false;
+                        if (transform.position.x < 0)
+                        {
+
+                            //anim.SetBool("walkBack", true);
+                            transform.Translate(new Vector3(walkSpeed * Time.deltaTime, 0, 0));
+                        }
+                        else
+                        {
+                            canAtk = false;
+                            page = 5;
+                        }
+                    }
+            if (page == 6)
+            {
+                canHurt = false;
+                if (transform.position.x < 7.5)
+                {
+
+                    //anim.SetBool("walkBack", true);
+                    transform.Translate(new Vector3(walkSpeed * Time.deltaTime, 0, 0));
+                }
+                else
+                {
+                    canAtk = false;
+                    page = 1;
+                }
+            }
+            Debug.Log("money: " + Goods.money);
         }
     }
 }
